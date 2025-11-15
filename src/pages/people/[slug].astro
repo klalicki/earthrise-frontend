@@ -63,7 +63,7 @@ const content: PersonPage = await loadFromCMS({
 <Layout title={`Person: ${content.displayname}`}>
   <Breadcrumbs
     items={[
-      { title: "People", url: "/people/" },
+      { title: "People", url: "/explore?query=&type=person" },
       { title: content.displayname },
     ]}
   />
