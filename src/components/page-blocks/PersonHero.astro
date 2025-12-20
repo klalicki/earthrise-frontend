@@ -29,7 +29,10 @@ import PersonPlaceholder from "../placeholders/PersonPlaceholder.astro";
       )
     }
     <!--  -->
-    <h1>{data.displayname} <span class="pronouns">({data.pronouns})</span></h1>
+    <h1>
+      {data.displayname}
+      {data.pronouns && <span class="pronouns">({data.pronouns})</span>}
+    </h1>
     {data.role && <p>{data.role}</p>}
     <!-- <Accordion title="Contact Information" /> -->
     <TagGroup tags={tags} />
