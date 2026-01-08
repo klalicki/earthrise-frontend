@@ -6,6 +6,14 @@ const navItems = [
   { label: "Code of Conduct", href: "/code-of-conduct" },
   { label: "Call for Submissions", href: "/submissions" },
   { label: "Blog", href: "/blog", isNew: true },
+  {
+    label: "Has submenu",
+    href: "",
+    items: [
+      { label: "Code of Conduct", href: "/code-of-conduct" },
+      { label: "Call for Submissions", href: "/submissions" },
+    ],
+  },
   { label: "Table of Contents", href: "" },
 ];
 import { Icon } from "astro-icon/components";
@@ -28,16 +36,46 @@ import { Icon } from "astro-icon/components";
     <div class="nav-group-main nav-mobile-hidden" id="menu-main-group">
       <div class="nav-links-group">
         {
-          navItems.map((item) => (
-            <a
-              data-astro-prefetch
-              href={item.href}
-              class:list={["nav-item", item.href === "" && "nav-item-inactive"]}
-            >
-              {item.label}
-              {item.isNew && <span class="ec-pill ec-pill-red">New!</span>}
-            </a>
-          ))
+          navItems.map((item) => {
+            const hasSubitems = item.items?.length > 0;
+            return (
+              <div class="nav-item">
+                <a
+                  data-astro-prefetch
+                  href={item.href}
+                  class:list={[
+                    hasSubitems && "nav-item-parent",
+                    item.href === "" && "nav-item-inactive",
+                  ]}
+                >
+                  {item.label}
+                  {item.isNew && <span class="ec-pill ec-pill-red">New!</span>}
+                </a>
+                {hasSubitems && (
+                  <div class="nav-subitem-list nav-subitem-list-hidden">
+                    {item.items.map((item) => {
+                      return (
+                        <a
+                          data-astro-prefetch
+                          href={item.href}
+                          class:list={[
+                            "nav-item",
+
+                            item.href === "" && "nav-item-inactive",
+                          ]}
+                        >
+                          {item.label}
+                          {item.isNew && (
+                            <span class="ec-pill ec-pill-red">New!</span>
+                          )}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            );
+          })
         }
       </div>
 
@@ -52,7 +90,7 @@ import { Icon } from "astro-icon/components";
   nav {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: var(--size-page-padding);
     border-bottom: 1px solid var(--color-borders);
   }
@@ -69,8 +107,12 @@ import { Icon } from "astro-icon/components";
   .nav-links-group {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0rem;
+  }
+  .nav-subitem-list {
+    display: flex;
+    flex-direction: column;
   }
 
   #menu-main-group {
@@ -130,6 +172,9 @@ import { Icon } from "astro-icon/components";
     padding: 1rem 2rem;
     text-decoration: none;
     font-size: 1.5rem;
+    position: relative;
+    display: flex;
+    flex-direction: column;
   }
   .nav-item-inactive {
     opacity: 0.33;
