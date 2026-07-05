@@ -1,13 +1,15 @@
 ---
-import type { GetStaticPaths } from "astro";
 import { parse as parseYaml } from "yaml";
 import Layout from "../../layouts/Layout.astro";
-import Breadcrumbs from "../../components/page-blocks/Breadcrumbs.astro";
 import { loadFromCMS } from "../../cms/loadFromCMS";
-import Code from "astro/components/Code.astro";
 import PageHero from "../../components/page-blocks/PageHero.astro";
 const { slug } = Astro.params;
-import BlockRenderer from "../../components/page-blocks/BlockRenderer.astro";
+import { Image } from "astro:assets";
+import PersonBlock from "../../components/page-blocks/PersonBlock.astro";
+import BGBlockAlt from "../../components/content-blocks/BGBlockAlt.astro";
+import ChapterBG from "../../assets/graphic-hero/chapter-bg.png";
+import BlockResources from "../../components/page-blocks/blocks/BlockResources.astro";
+import HeroImage from "../../components/page-blocks/HeroImage.astro";
 
 export const getStaticPaths = async () => {
   const chapters = await loadFromCMS({ query: 'page("chapters").children' });
@@ -18,36 +20,134 @@ export const getStaticPaths = async () => {
   });
 };
 
-const rawData = await loadFromCMS({ query: `page('chapters/${slug}')` });
+const rawData = await loadFromCMS({
+  query: `page('chapters/${slug}')`,
+  select: {
+    content: true,
+    uuid: true,
+    author: {
+      query: "page.content.author.toPage",
+      select: {
+        uuid: true,
+        id: true,
+        displayname: true,
+        organizationname: true,
+        pronouns: true,
+        location: true,
+
+        photo: {
+          query: "page.photo.safeResize(144)",
+          select: ["url", "width", "height"],
+        },
+      },
+    },
+  },
+});
 
 const blockData = parseYaml(rawData.content.text);
-
-const content = await loadFromCMS({
-  query: `page('chapters/${slug}')`,
-});
+const linksData = parseYaml(rawData.content.links);
+const resourceLinksData = parseYaml(rawData.content.resourcelinks);
+const hasResourceLinks = resourceLinksData.length > 0;
 const pageFiles = await loadFromCMS({
   query: `page('chapters/${slug}').files`,
   select: ["uuid", "url", "alt", "size", "extension", "filename", "caption"],
 });
 ---
 
-<Layout title={`${content.title}`}>
-  <h1>{content.title}</h1>
-  <p>Chapter pages coming soon!</p>
-  <!-- <pre>{JSON.stringify(content, null, 2)}</pre> -->
-  <!-- <PageHero title={content.title} subtitle={content.subtitle} /> -->
-  <!-- <BlockRenderer blockData={blockData} pageFiles={pageFiles} /> -->
-  <!-- <Breadcrumbs
-    items={[
-      { title: "People", url: "/people/" },
-      { title: content.displayname },
-    ]}
-  /> -->
-  <!-- <PersonHero data={content} />
-  <h2>About {content.displayname}</h2>
-  <Fragment set:html={content.bio} />
-  <h2>Content</h2>
-  <p>These are articles and lessons submitted by {content.displayname}.</p> -->
-</Layout>
+<Layout title={`${rawData.content.title}`}>
+  <PageHero title={rawData.content.title}>
+    <!-- TODO: map multiple authors to separate PersonBlock components -->
+    <Fragment slot="left">
+      <!-- <TagGroup tags={normalizeTagsJSON(rawData.taxonomy)} /> -->
+      <PersonBlock
+        personId={rawData.author.id}
+        personName={rawData.author.displayname}
+        personOrg={rawData.author.organizationname}
+        personImage={rawData.author.photo}
+        personUuid={rawData.author.uuid}
+      />
+    </Fragment>
+    <Fragment slot="right">
+      <HeroImage data={""} uuid={rawData.uuid} />
+    </Fragment>
+  </PageHero>
+  <div class="chapter-block">
+    <Image inferSize src={ChapterBG} alt="" class="chapter-block-image" />
 
-<style></style>
+    <div class="chapter-block-content padded-content-container">
+      <h2>About this Chapter</h2>
+      <Fragment set:html={rawData.content.summary} />
+      <BlockResources
+        content={{
+          title: "Read the Chapter",
+          items: linksData,
+        }}
+        pageFiles={pageFiles}
+      />
+      {
+        hasResourceLinks && (
+          <BlockResources
+            content={{
+              title: "Related Resources",
+              items: resourceLinksData,
+            }}
+            pageFiles={pageFiles}
+          />
+        )
+      }
+    </div>
+  </div>
+  <style>
+    .chapter-block {
+      max-width: 100vw;
+      height: auto;
+      /* background-color: red; */
+      position: relative;
+      --color-background: var(--color-theme-text);
+      --color-text: var(--color-theme-background);
+    }
+
+    .chapter-block {
+      background-color: var(--color-background);
+      color: var(--color-text);
+      /* font-weight: 400; */
+      display: grid;
+      grid-template-columns: 1fr var(--size-padded-content) 1fr;
+      grid-template-rows: 4rem min-content 5rem;
+
+      max-width: 100%;
+      width: 100%;
+      overflow: hidden;
+      margin-left: 0;
+      margin-right: 0;
+      position: relative;
+    }
+    .chapter-block-content {
+      position: relative;
+      z-index: 10;
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .chapter-block-content::after {
+      content: "";
+      position: absolute;
+      top: -1rem;
+      left: -2rem;
+      right: -2rem;
+      bottom: -1rem;
+      background: var(--color-background);
+      opacity: 0.8;
+      z-index: -1;
+    }
+    .chapter-block-image {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: left bottom;
+      /* overflow: hidden; */
+    }
+  </style>
+</Layout>

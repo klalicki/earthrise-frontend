@@ -11,7 +11,7 @@ import people from "../assets/searchFilters/people.svg";
 
 export const pageTypes = [
   {
-    label: "Articles",
+    label: "Article",
     value: "article",
     color: "var(--color-category-a)",
     Graphic: articles,
