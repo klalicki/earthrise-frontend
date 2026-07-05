@@ -1,19 +1,14 @@
 ---
-import type { GetStaticPaths } from "astro";
 import { parse as parseYaml } from "yaml";
 import Layout from "../../layouts/Layout.astro";
-import Breadcrumbs from "../../components/page-blocks/Breadcrumbs.astro";
 import { loadFromCMS } from "../../cms/loadFromCMS";
-import Code from "astro/components/Code.astro";
 import PageHero from "../../components/page-blocks/PageHero.astro";
 const { slug } = Astro.params;
-import BlockRenderer from "../../components/page-blocks/BlockRenderer.astro";
-import { normalizeTagsJSON } from "../../cms/normalizeTags";
-import HeroImage from "../../components/page-blocks/HeroImage.astro";
+import { Image } from "astro:assets";
 import PersonBlock from "../../components/page-blocks/PersonBlock.astro";
-import TagGroup from "../../components/page-blocks/TagGroup.astro";
 import BGBlockAlt from "../../components/content-blocks/BGBlockAlt.astro";
-import Accordion from "../../components/content-blocks/Accordion.astro";
+import ChapterBG from "../../assets/graphic-hero/chapter-bg.png";
+import BlockResources from "../../components/page-blocks/blocks/BlockResources.astro";
 
 export const getStaticPaths = async () => {
   const chapters = await loadFromCMS({ query: 'page("chapters").children' });
@@ -49,7 +44,9 @@ const rawData = await loadFromCMS({
 });
 
 const blockData = parseYaml(rawData.content.text);
-
+const linksData = parseYaml(rawData.content.links);
+const resourceLinksData = parseYaml(rawData.content.resourcelinks);
+const hasResourceLinks = resourceLinksData.length > 0;
 const pageFiles = await loadFromCMS({
   query: `page('chapters/${slug}').files`,
   select: ["uuid", "url", "alt", "size", "extension", "filename", "caption"],
@@ -57,13 +54,6 @@ const pageFiles = await loadFromCMS({
 ---
 
 <Layout title={`${rawData.content.title}`}>
-  <pre
-    style=" white-space: pre-wrap;   ">
-<code>
-    {JSON.stringify(rawData.content, null, 1)}
-  </code>
-  </pre>
-
   <PageHero title={rawData.content.title}>
     <!-- TODO: map multiple authors to separate PersonBlock components -->
     <Fragment slot="left">
@@ -76,15 +66,84 @@ const pageFiles = await loadFromCMS({
         personUuid={rawData.author.uuid}
       />
     </Fragment>
-    <!-- <Fragment slot="right"> -->
-    <!-- <HeroImage data={rawData.hero} uuid={rawData.uuid} /> -->
-    <!-- </Fragment> -->
   </PageHero>
-  <BGBlockAlt>
-    <h2>About this Chapter</h2>
-    <Fragment set:html={rawData.content.summary} />
-    <Accordion title="Read The Chapter">TEST</Accordion>
-    <!-- <pre>{JSON.stringify(rawData, null, 2)}</pre> -->
-  </BGBlockAlt>
-  <BlockRenderer blockData={blockData} pageFiles={pageFiles} />
+  <div class="chapter-block">
+    <Image inferSize src={ChapterBG} alt="" class="chapter-block-image" />
+
+    <div class="chapter-block-content padded-content-container">
+      <h2>About this Chapter</h2>
+      <Fragment set:html={rawData.content.summary} />
+      <BlockResources
+        content={{
+          title: "Read the Chapter",
+          items: linksData,
+        }}
+        pageFiles={pageFiles}
+      />
+      {
+        hasResourceLinks && (
+          <BlockResources
+            content={{
+              title: "Related Resources",
+              items: resourceLinksData,
+            }}
+            pageFiles={pageFiles}
+          />
+        )
+      }
+    </div>
+  </div>
+  <style>
+    .chapter-block {
+      max-width: 100vw;
+      height: auto;
+      /* background-color: red; */
+      position: relative;
+      --color-background: var(--color-theme-text);
+      --color-text: var(--color-theme-background);
+    }
+
+    .chapter-block {
+      background-color: var(--color-background);
+      color: var(--color-text);
+      /* font-weight: 400; */
+      display: grid;
+      grid-template-columns: 1fr var(--size-padded-content) 1fr;
+      grid-template-rows: 4rem min-content 5rem;
+
+      max-width: 100%;
+      width: 100%;
+      overflow: hidden;
+      margin-left: 0;
+      margin-right: 0;
+      position: relative;
+    }
+    .chapter-block-content {
+      position: relative;
+      z-index: 10;
+      grid-column: 2;
+      grid-row: 2;
+    }
+    .chapter-block-content::after {
+      content: "";
+      position: absolute;
+      top: -1rem;
+      left: -2rem;
+      right: -2rem;
+      bottom: -1rem;
+      background: var(--color-background);
+      opacity: 0.8;
+      z-index: -1;
+    }
+    .chapter-block-image {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: left bottom;
+      /* overflow: hidden; */
+    }
+  </style>
 </Layout>
