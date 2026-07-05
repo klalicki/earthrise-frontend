@@ -3,14 +3,19 @@ interface Props {
   current: number;
   max: number;
   query: string;
+  types: string[];
 }
 
-const { current, max, query } = Astro.props;
+const { current, max, query, types } = Astro.props;
 
 const getPaginationURL = (page: number) => {
   const tempParams = new URLSearchParams("");
   tempParams.append("query", query);
+  types.forEach((typeStr) => {
+    tempParams.append("type", typeStr);
+  });
   tempParams.append("page", page.toString());
+
   return "?" + tempParams.toString();
 };
 
@@ -41,7 +46,7 @@ if (max - current <= 3) {
 } else {
   paginationItems.push(current + 1);
   paginationItems.push(current + 2);
-  paginationItems.push(null), paginationItems.push(max);
+  (paginationItems.push(null), paginationItems.push(max));
 }
 ---
 
