@@ -12,7 +12,7 @@ const hasPhoto = personImage;
 <div class="person-block">
   {
     personImage ? (
-      <Image class="person-block-image" src={personImage.url} alt="" />
+      <Image class="person-block-image" src={personImage.url} inferSize alt="" />
     ) : (
       <PersonPlaceholder class="person-block-image" uuid={personUuid} />
     )
