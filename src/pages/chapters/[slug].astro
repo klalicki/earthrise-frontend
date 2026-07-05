@@ -9,6 +9,7 @@ import PersonBlock from "../../components/page-blocks/PersonBlock.astro";
 import BGBlockAlt from "../../components/content-blocks/BGBlockAlt.astro";
 import ChapterBG from "../../assets/graphic-hero/chapter-bg.png";
 import BlockResources from "../../components/page-blocks/blocks/BlockResources.astro";
+import HeroImage from "../../components/page-blocks/HeroImage.astro";
 
 export const getStaticPaths = async () => {
   const chapters = await loadFromCMS({ query: 'page("chapters").children' });
@@ -65,6 +66,9 @@ const pageFiles = await loadFromCMS({
         personImage={rawData.author.photo}
         personUuid={rawData.author.uuid}
       />
+    </Fragment>
+    <Fragment slot="right">
+      <HeroImage data={""} uuid={rawData.uuid} />
     </Fragment>
   </PageHero>
   <div class="chapter-block">
