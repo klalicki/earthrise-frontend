@@ -8,6 +8,10 @@ import Code from "astro/components/Code.astro";
 import PageHero from "../../components/page-blocks/PageHero.astro";
 const { slug } = Astro.params;
 import BlockRenderer from "../../components/page-blocks/BlockRenderer.astro";
+import { normalizeTagsJSON } from "../../cms/normalizeTags";
+import HeroImage from "../../components/page-blocks/HeroImage.astro";
+import PersonBlock from "../../components/page-blocks/PersonBlock.astro";
+import TagGroup from "../../components/page-blocks/TagGroup.astro";
 
 export const getStaticPaths = async () => {
   const chapters = await loadFromCMS({ query: 'page("chapters").children' });
@@ -18,22 +22,56 @@ export const getStaticPaths = async () => {
   });
 };
 
-const rawData = await loadFromCMS({ query: `page('chapters/${slug}')` });
+const rawData = await loadFromCMS({
+  query: `page('chapters/${slug}')`,
+  select: {
+    content: true,
+    uuid: true,
+    author: {
+      query: "page.content.author.toPage",
+      select: {
+        uuid: true,
+        id: true,
+        displayname: true,
+        organizationname: true,
+        pronouns: true,
+        location: true,
+
+        photo: {
+          query: "page.photo.safeResize(144)",
+          select: ["url", "width", "height"],
+        },
+      },
+    },
+  },
+});
 
 const blockData = parseYaml(rawData.content.text);
 
-const content = await loadFromCMS({
-  query: `page('chapters/${slug}')`,
-});
 const pageFiles = await loadFromCMS({
   query: `page('chapters/${slug}').files`,
   select: ["uuid", "url", "alt", "size", "extension", "filename", "caption"],
 });
 ---
 
-<Layout title={`${content.title}`}>
-  <h1>{content.title}</h1>
-  <p>Chapter pages coming soon!</p>
-</Layout>
+<Layout title={`${rawData.content.title}`}>
+  <PageHero title={rawData.content.title}>
+    <!-- TODO: map multiple authors to separate PersonBlock components -->
+    <Fragment slot="left">
+      <!-- <TagGroup tags={normalizeTagsJSON(rawData.taxonomy)} /> -->
+      <PersonBlock
+        personId={rawData.author.id}
+        personName={rawData.author.displayname}
+        personOrg={rawData.author.organizationname}
+        personImage={rawData.author.photo}
+        personUuid={rawData.author.uuid}
+      />
+    </Fragment>
+    <!-- <Fragment slot="right"> -->
+    <!-- <HeroImage data={rawData.hero} uuid={rawData.uuid} /> -->
+    <!-- </Fragment> -->
+  </PageHero>
 
-<style></style>
+  <!-- <pre>{JSON.stringify(rawData, null, 2)}</pre> -->
+  <BlockRenderer blockData={blockData} pageFiles={pageFiles} />
+</Layout>
