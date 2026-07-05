@@ -12,6 +12,8 @@ import { normalizeTagsJSON } from "../../cms/normalizeTags";
 import HeroImage from "../../components/page-blocks/HeroImage.astro";
 import PersonBlock from "../../components/page-blocks/PersonBlock.astro";
 import TagGroup from "../../components/page-blocks/TagGroup.astro";
+import BGBlockAlt from "../../components/content-blocks/BGBlockAlt.astro";
+import Accordion from "../../components/content-blocks/Accordion.astro";
 
 export const getStaticPaths = async () => {
   const chapters = await loadFromCMS({ query: 'page("chapters").children' });
@@ -55,6 +57,13 @@ const pageFiles = await loadFromCMS({
 ---
 
 <Layout title={`${rawData.content.title}`}>
+  <pre
+    style=" white-space: pre-wrap;   ">
+<code>
+    {JSON.stringify(rawData.content, null, 1)}
+  </code>
+  </pre>
+
   <PageHero title={rawData.content.title}>
     <!-- TODO: map multiple authors to separate PersonBlock components -->
     <Fragment slot="left">
@@ -71,7 +80,11 @@ const pageFiles = await loadFromCMS({
     <!-- <HeroImage data={rawData.hero} uuid={rawData.uuid} /> -->
     <!-- </Fragment> -->
   </PageHero>
-
-  <!-- <pre>{JSON.stringify(rawData, null, 2)}</pre> -->
+  <BGBlockAlt>
+    <h2>About this Chapter</h2>
+    <Fragment set:html={rawData.content.summary} />
+    <Accordion title="Read The Chapter">TEST</Accordion>
+    <!-- <pre>{JSON.stringify(rawData, null, 2)}</pre> -->
+  </BGBlockAlt>
   <BlockRenderer blockData={blockData} pageFiles={pageFiles} />
 </Layout>
