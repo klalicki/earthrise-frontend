@@ -1,0 +1,27 @@
+---
+import { loadFromCMS } from "../cms/loadFromCMS";
+import Layout from "../layouts/Layout.astro";
+
+// fetch chapters:
+const chapters = await loadFromCMS({
+  query: 'page("chapters").children',
+  select: {
+    id: true,
+    title: true,
+    author: {
+      query: "page.author.toPage",
+      select: ["displayname", "organizationname"],
+    },
+  },
+});
+---
+
+<Layout title="Table of Contents">
+  <h1>Table of Contents</h1>
+
+  <h2>Book Chapters</h2>
+  <pre>
+    {JSON.stringify(chapters, null, 1)}
+  </pre>
+  <h2>Book Authors</h2>
+</Layout>
