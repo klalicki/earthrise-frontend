@@ -1,7 +1,7 @@
 ---
 import { loadFromCMS } from "../cms/loadFromCMS";
 import Layout from "../layouts/Layout.astro";
-
+import Accordion from "../components/content-blocks/Accordion.astro";
 const sectionTitles = {
   ch1: "1. Introduction",
   ch2: "2. Being a Sustainability Educator: Pursuing Questions and Shaping Values",
@@ -13,6 +13,7 @@ const sectionTitles = {
 };
 
 const chapterData = [];
+const authorData = [];
 // fetch chapters:
 const chapters: { sectionID: string; chapterID: string }[] = await loadFromCMS({
   query: 'page("chapters").children',
@@ -23,7 +24,7 @@ const chapters: { sectionID: string; chapterID: string }[] = await loadFromCMS({
     chapterID: true,
     author: {
       query: "page.author.toPage",
-      select: ["displayname", "organizationname"],
+      select: ["displayname", "id", "organizationname"],
     },
   },
 });
@@ -48,8 +49,7 @@ for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
   {
     chapterData.map((section) => {
       return (
-        <>
-          <h3>{section.title}</h3>
+        <Accordion title={section.title} group="toc">
           <dl>
             {section.chapters.map((chapter) => {
               console.log(chapter);
@@ -63,7 +63,7 @@ for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
               );
             })}
           </dl>
-        </>
+        </Accordion>
       );
     })
   }
