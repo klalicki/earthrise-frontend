@@ -20,7 +20,10 @@ import Image from "astro/components/Image.astro";
       A Sustainability Learning Commons with open resources for teaching &
       practicing sustainability in your community
     </p>
-    <a href="/submissions" class="ec-button">Contribute a Project</a>
+    <div class="button-group">
+      <a href="/explore" class="ec-button">Explore the Commons</a>
+      <a href="/submissions" class="ec-button">Contribute</a>
+    </div>
   </div>
   <Image class="homepage-lre" src={HomepageLRE} alt="" />
 </Layout>
@@ -51,5 +54,10 @@ import Image from "astro/components/Image.astro";
   .home-group {
     margin-top: -2rem;
     margin-bottom: -3rem;
+  }
+  /* TODO: convert this to a utility class */
+  .button-group {
+    display: flex;
+    gap: 1rem;
   }
 </style>
