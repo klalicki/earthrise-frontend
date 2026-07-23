@@ -1,6 +1,8 @@
 ---
 import { loadFromCMS } from "../cms/loadFromCMS";
 import Layout from "../layouts/Layout.astro";
+import BookCover from "../assets/images/book-cover.webp";
+import { Image } from "astro:assets";
 import Accordion from "../components/content-blocks/Accordion.astro";
 const sectionTitles = {
   ch1: "1. Introduction",
@@ -44,8 +46,30 @@ for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
 <Layout title="Table of Contents">
   <h1>Table of Contents</h1>
 
-  <h2>Book Chapters</h2>
-
+  <div class="book-card">
+    <div class="book-card-text">
+      <h2>Browse the book</h2>
+      <p>
+        The entire contents of the book are available for free open access via
+        SpringerLink. Read more than 60 case studies on sustainability education
+        in all subject areas from college faculty around the world, see related
+        resources, and find lesson plans and submit your own.
+      </p>
+      <a
+        class="ec-button"
+        href="https://link.springer.com/book/10.1007/978-3-032-11698-7"
+        >Find the Book</a
+      >
+    </div>
+    <div class="book-cover-container">
+ <Image
+      class="book-cover"
+      alt="Sustainability Learning for Action and Community Engagement book cover"
+      src={BookCover}
+    />
+    </div>
+   
+  </div>
   {
     chapterData.map((section) => {
       return (
@@ -67,9 +91,42 @@ for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
       );
     })
   }
-
-  <!-- <pre>
-    {JSON.stringify(chapters, null, 1)}
-  </pre> -->
-  <h2>Book Authors</h2>
+  <Accordion title="Book Authors" group="toc"> Book authors go here </Accordion>
 </Layout>
+
+<style>
+  .book-cover {
+    max-width: 250px;
+    border-radius: 1rem;
+  }
+  .book-cover-container{
+    position: relative;
+  }
+  .book-cover-container::after{
+    content:"";
+    position: absolute;
+    border:4px solid black;
+    top:1rem;
+    left:1rem;
+    right:-1rem;
+    bottom:-1rem;
+    border-radius: 1rem;
+    z-index: -10;;
+  }
+
+  .book-card {
+    border: 1px solid var(--color-borders);
+    border-radius: 0.6rem;
+    padding:  6rem;
+    display: flex;
+    gap: 3rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  .book-card-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    flex-basis: 400px;flex-grow: 1;
+</style>
