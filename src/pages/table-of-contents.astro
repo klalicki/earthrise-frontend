@@ -2,24 +2,53 @@
 import { loadFromCMS } from "../cms/loadFromCMS";
 import Layout from "../layouts/Layout.astro";
 
+const sectionTitles = {
+  ch1: "1. Introduction",
+  ch2: "2. Being a Sustainability Educator: Pursuing Questions and Shaping Values",
+  ch3: "3. Creating Transformational Learning Experiences",
+  ch4: "4. Enacting Principles of Human and Environmental Flourishing in Teaching",
+  ch5: "5. Building a Sustainability Action Culture in Institutions",
+  ch6: "6. Engaging Communities: Campus and Region as Living Laboratories",
+  ch7: "7. Reimagining and Remixing Materials for Circular Cycles: Sourcing - Design - Disposal",
+};
+
+const chapterData = [];
 // fetch chapters:
-const chapters = await loadFromCMS({
+const chapters: { sectionID: string; chapterID: string }[] = await loadFromCMS({
   query: 'page("chapters").children',
   select: {
     id: true,
     title: true,
+    sectionID: true,
+    chapterID: true,
     author: {
       query: "page.author.toPage",
       select: ["displayname", "organizationname"],
     },
   },
 });
+
+for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
+  const sectionChapters = chapters
+    .filter((item) => {
+      return item.sectionID === sectionID;
+    })
+    .sort((a, b) => {
+      return a.chapterID < b.chapterID ? -1 : 1;
+    });
+  console.log(sectionTitle);
+  console.log(sectionChapters);
+}
 ---
 
 <Layout title="Table of Contents">
   <h1>Table of Contents</h1>
 
   <h2>Book Chapters</h2>
+  <h3>Section Title</h3>
+  <dl>
+    <dt>Chapter Title</dt><dd>Chapter Author & Location</dd>
+  </dl>
   <pre>
     {JSON.stringify(chapters, null, 1)}
   </pre>
