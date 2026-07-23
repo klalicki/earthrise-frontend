@@ -36,8 +36,7 @@ for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
     .sort((a, b) => {
       return a.chapterID < b.chapterID ? -1 : 1;
     });
-  console.log(sectionTitle);
-  console.log(sectionChapters);
+  chapterData.push({ title: sectionTitle, chapters: sectionChapters });
 }
 ---
 
@@ -45,12 +44,32 @@ for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
   <h1>Table of Contents</h1>
 
   <h2>Book Chapters</h2>
-  <h3>Section Title</h3>
-  <dl>
-    <dt>Chapter Title</dt><dd>Chapter Author & Location</dd>
-  </dl>
-  <pre>
+
+  {
+    chapterData.map((section) => {
+      return (
+        <>
+          <h3>{section.title}</h3>
+          <dl>
+            {section.chapters.map((chapter) => {
+              console.log(chapter);
+              return (
+                <>
+                  <dt>
+                    <a href={"/" + chapter.id}>{chapter.title}</a>
+                  </dt>
+                  <dd>{chapter.author.displayname}</dd>
+                </>
+              );
+            })}
+          </dl>
+        </>
+      );
+    })
+  }
+
+  <!-- <pre>
     {JSON.stringify(chapters, null, 1)}
-  </pre>
+  </pre> -->
   <h2>Book Authors</h2>
 </Layout>
