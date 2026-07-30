@@ -30,6 +30,16 @@ const chapters: { sectionID: string; chapterID: string }[] = await loadFromCMS({
     },
   },
 });
+// fetch authors
+const authors:{displayname:string,id:string,organizationname:string}[] = await loadFromCMS({
+  query: 'page("people").children.filterBy("isBookAuthor","true")',
+  select:['displayname','id','organizationname']})
+
+const authorsSorted = authors.sort((a,b)=>{
+  const lastNameA = a.displayname.split(" ").at(-1)
+  const lastNameB = b.displayname.split(" ").at(-1)
+  return (lastNameA < lastNameB)? -1: 1
+})
 
 for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
   const sectionChapters = chapters
@@ -91,7 +101,19 @@ for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
       );
     })
   }
-  <Accordion title="Book Authors" group="toc"> Book authors go here </Accordion>
+  <Accordion title="Book Authors" group="toc"> 
+
+    <dl>
+{authorsSorted.map(item=>{
+  return (<>
+    <dt><a href={"/"+item.id}>{item.displayname}</a></dt>
+    <dd>{item.organizationname}</dd>
+  </>)
+})}
+
+    </dl>
+  </Accordion>
+
 </Layout>
 
 <style>
