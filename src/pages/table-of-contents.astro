@@ -1,0 +1,154 @@
+---
+import { loadFromCMS } from "../cms/loadFromCMS";
+import Layout from "../layouts/Layout.astro";
+import BookCover from "../assets/images/book-cover.webp";
+import { Image } from "astro:assets";
+import Accordion from "../components/content-blocks/Accordion.astro";
+const sectionTitles = {
+  ch1: "Introduction",
+  ch2: "I. Being a Sustainability Educator: Pursuing Questions and Shaping Values",
+  ch3: "II. Creating Transformational Learning Experiences",
+  ch4: "III. Enacting Principles of Human and Environmental Flourishing in Teaching",
+  ch5: "IV. Building a Sustainability Action Culture in Institutions",
+  ch6: "V. Engaging Communities: Campus and Region as Living Laboratories",
+  ch7: "VI. Reimagining and Remixing Materials for Circular Cycles: Sourcing - Design - Disposal",
+};
+
+const chapterData = [];
+const authorData = [];
+// fetch chapters:
+const chapters: { sectionID: string; chapterID: string }[] = await loadFromCMS({
+  query: 'page("chapters").children',
+  select: {
+    id: true,
+    title: true,
+    sectionID: true,
+    chapterID: true,
+    author: {
+      query: "page.author.toPage",
+      select: ["displayname", "id", "organizationname"],
+    },
+  },
+});
+// fetch authors
+const authors:{displayname:string,id:string,organizationname:string}[] = await loadFromCMS({
+  query: 'page("people").children.filterBy("isBookAuthor","true")',
+  select:['displayname','id','organizationname']})
+
+const authorsSorted = authors.sort((a,b)=>{
+  const lastNameA = a.displayname.split(" ").at(-1)
+  const lastNameB = b.displayname.split(" ").at(-1)
+  return (lastNameA < lastNameB)? -1: 1
+})
+
+for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
+  const sectionChapters = chapters
+    .filter((item) => {
+      return item.sectionID === sectionID;
+    })
+    .sort((a, b) => {
+      return a.chapterID < b.chapterID ? -1 : 1;
+    });
+  chapterData.push({ title: sectionTitle, chapters: sectionChapters });
+}
+---
+
+<Layout title="Table of Contents">
+  <h1>Table of Contents</h1>
+
+  <div class="book-card">
+    <div class="book-card-text">
+      <h2>Browse the book</h2>
+      <p>
+        The entire contents of the book are available for free open access via
+        SpringerLink. Read more than 60 case studies on sustainability education
+        in all subject areas from college faculty around the world, see related
+        resources, and find lesson plans and submit your own.
+      </p>
+      <a
+        class="ec-button"
+        href="https://link.springer.com/book/10.1007/978-3-032-11698-7"
+        >Find the Book</a
+      >
+    </div>
+    <div class="book-cover-container">
+ <Image
+      class="book-cover"
+      alt="Sustainability Learning for Action and Community Engagement book cover"
+      src={BookCover}
+    />
+    </div>
+   
+  </div>
+  {
+    chapterData.map((section) => {
+      return (
+        <Accordion title={section.title} group="toc">
+          <dl>
+            {section.chapters.map((chapter) => {
+              return (
+                <>
+                  <dt>
+                    <a href={"/" + chapter.id}>{chapter.title}</a>
+                  </dt>
+                  <dd>{chapter.author.displayname}</dd>
+                </>
+              );
+            })}
+          </dl>
+        </Accordion>
+      );
+    })
+  }
+  <Accordion title="Book Authors" group="toc"> 
+
+    <dl>
+{authorsSorted.map(item=>{
+  return (<>
+    <dt><a href={"/"+item.id}>{item.displayname}</a></dt>
+    <dd>{item.organizationname}</dd>
+  </>)
+})}
+
+    </dl>
+  </Accordion>
+
+</Layout>
+
+<style>
+  .book-cover {
+    max-width: 250px;
+    border-radius: 1rem;
+  }
+  .book-cover-container{
+    position: relative;
+  }
+  .book-cover-container::after{
+    content:"";
+    position: absolute;
+    border:4px solid black;
+    top:1rem;
+    left:1rem;
+    right:-1rem;
+    bottom:-1rem;
+    border-radius: 1rem;
+    z-index: -10;;
+  }
+
+  .book-card {
+    border: 1px solid var(--color-borders);
+    border-radius: 0.6rem;
+    padding:  6rem;
+    display: flex;
+    gap: 3rem;
+    /* align-items: flex-start; */
+    flex-wrap: wrap;
+  }
+  .book-card-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-basis: 400px;flex-grow: 1;
+</style>
