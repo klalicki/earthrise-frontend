@@ -1,0 +1,24 @@
+---
+interface Props {
+  text?: string;
+  href?: string;
+}
+const { text = "Skip to main content", href = "#main-content" } = Astro.props;
+---
+
+<a class="skip-link ec-button" href={href}>{text}</a>
+
+<style>
+  .skip-link {
+    left: 1rem;
+    top: 1rem;
+    /* padding: 1rem; */
+    position: absolute;
+    transform: translateY(-300%);
+    /* transition: transform 0.3s; */
+  }
+
+  .skip-link:focus {
+    transform: translateY(0%);
+  }
+</style>
