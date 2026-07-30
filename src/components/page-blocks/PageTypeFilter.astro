@@ -23,8 +23,8 @@ import { Image } from 'astro:assets';
      <div class="inline-heading-group"><h3>Filter by Page Type:</h3><button id="btn-clear-pt-filter">Clear filter</button></div> 
       
       <input hidden type="text" name="query" value={props.query ?? ""} />
-      
-            <div class="page-types-grid">
+          <div class="page-types-filter-container">
+ <div class="page-types-grid">
                     {
         pageTypes.map((pageType) => {
           return (
@@ -42,8 +42,10 @@ import { Image } from 'astro:assets';
           );
         })
       }
-              <button type="submit">Filter</button> </div>
-
+               </div>
+<button type="submit">Filter</button>
+          </div>
+           
    
     </form>
 
@@ -56,15 +58,13 @@ h3{
 }
 
 .page-types-grid{
-  margin-top:1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 80px;
-  gap:.5rem;
+grid-template-columns: 1fr 1fr;  gap:.5rem;
 }
 .filter-label{
   display: flex;
   position: relative;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: stretch;
   /* padding:1rem; */
   border: 2px solid var(--color-filter);
@@ -83,9 +83,9 @@ width:auto;
 opacity: .25;
 }
 .filter-label-text{
-  padding:1rem;
   position: relative;
   z-index: 10;
+  padding:.5rem;
 }
 .filter-label::after{
   content:"";
@@ -112,7 +112,8 @@ input:checked+.filter-label .filter-label-img{
 
 button{
   text-align: center;
-  border-radius:.5rem
+  border-radius:.5rem;
+  padding:1rem;
 }
 
       .really-hidden {
@@ -141,6 +142,27 @@ button{
     
 .inline-heading-group h3{
   display: inline;
+}
+
+.page-types-filter-container{
+  display: grid;
+  gap:.5rem;
+    margin-top:1rem;
+  grid-template-columns: 1fr 90px;
+
+}
+
+@media (min-width: 550px) {
+ .page-types-grid{
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+ }
+ .filter-label-text{
+    padding:1rem;
+
+ }
+ .filter-label{
+  justify-content: flex-end;
+ }
 }
 
     </style>
