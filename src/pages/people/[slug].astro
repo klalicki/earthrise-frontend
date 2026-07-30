@@ -70,10 +70,11 @@ const content: PersonPage = await loadFromCMS({
   <PersonHero data={content} />
   <h2>About {content.displayname}</h2>
   <Fragment set:html={content.bio} />
+  {content.relatedPages.length>0&&(  
   <h2>Content</h2>
   <p>These are articles and lessons submitted by {content.displayname}.</p>
+  <CardFeed pageData={content.relatedPages} />)}
 
-  <CardFeed pageData={content.relatedPages} />
 </Layout>
 
 <style></style>
