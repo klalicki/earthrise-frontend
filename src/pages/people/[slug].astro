@@ -58,6 +58,11 @@ const content: PersonPage = await loadFromCMS({
     },
   },
 });
+
+// throw 404 instead of generic error if the page doesn't exist
+if (content == null) {
+  return Astro.rewrite("/404");
+}
 ---
 
 <Layout title={`Person: ${content.displayname}`}>
