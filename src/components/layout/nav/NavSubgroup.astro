@@ -21,7 +21,7 @@ interface Props {
   </div>
 
   <div class="nav-dropdown-content hidden" id={`dropdown-${uid}`}>
-    {itemData.subItems.map((item) => <NavItem {...item} />)}
+    {itemData.subItems.map((item: any) => <NavItem {...item} />)}
   </div>
 </div>
 
@@ -97,54 +97,112 @@ interface Props {
 </style>
 
 <script>
-  // TODO: add astro events so this continues working after view transitions
-  const dropdownGroups = document.querySelectorAll(".nav-dropdown-group");
-  const dropdownContents = document.querySelectorAll(".nav-dropdown-content");
+  const dropdownState = {
+    initialized: false,
+    handlers: new WeakMap(),
+  };
 
-  const hideAllGroups = () => {
-    dropdownContents.forEach((elem) => {
-      elem.classList.toggle("hidden", true);
+  // Attach hover, click, and focus handlers to each dropdown group.
+  const attachDropdownInteractions = () => {
+    document.querySelectorAll(".nav-dropdown-group").forEach((group) => {
+      const contentElem = group.querySelector(".nav-dropdown-content");
+      const triggerButton = group.querySelector(".nav-dropdown-toggle");
+
+      if (!contentElem || !triggerButton) {
+        return;
+      }
+
+      const handlers = {
+        // Tracks any pending close timer so it can be canceled before the dropdown closes.
+        closeTimeout: undefined as ReturnType<typeof setTimeout> | undefined,
+        // Toggle the dropdown content open or closed when the trigger button is clicked.
+        click: () => {
+          contentElem.classList.toggle("hidden");
+          triggerButton.ariaExpanded = contentElem.classList.contains("hidden")
+            ? "false"
+            : "true";
+        },
+        // Open the dropdown and cancel any pending close timer when the pointer enters.
+        mouseenter: () => {
+          if (handlers.closeTimeout) {
+            clearTimeout(handlers.closeTimeout);
+            handlers.closeTimeout = undefined;
+          }
+          contentElem.classList.toggle("hidden", false);
+          triggerButton.ariaExpanded = "true";
+        },
+        // Start a delayed close when the pointer leaves the dropdown group.
+        mouseleave: () => {
+          if (handlers.closeTimeout) {
+            clearTimeout(handlers.closeTimeout);
+          }
+
+          handlers.closeTimeout = setTimeout(() => {
+            triggerButton.ariaExpanded = "false";
+            contentElem.classList.toggle("hidden", true);
+            handlers.closeTimeout = undefined;
+          }, 500);
+        },
+        // Close the dropdown after focus leaves the group, unless focus moves to a child element.
+        focusout: (event: Event) => {
+          const relatedTarget = (event as FocusEvent)
+            .relatedTarget as Node | null;
+          const isChildElem = group.contains(relatedTarget);
+          if (!isChildElem) {
+            if (handlers.closeTimeout) {
+              clearTimeout(handlers.closeTimeout);
+            }
+
+            handlers.closeTimeout = setTimeout(() => {
+              triggerButton.ariaExpanded = "false";
+              contentElem.classList.toggle("hidden", true);
+              handlers.closeTimeout = undefined;
+            }, 500);
+          }
+        },
+      };
+
+      triggerButton.addEventListener("click", handlers.click);
+      group.addEventListener("mouseenter", handlers.mouseenter);
+      group.addEventListener("mouseleave", handlers.mouseleave);
+      group.addEventListener("focusout", handlers.focusout);
+
+      dropdownState.handlers.set(group, handlers);
     });
   };
 
-  dropdownGroups.forEach((group) => {
-    const contentElem = group.querySelector(".nav-dropdown-content");
-    const triggerButton = group.querySelector(".nav-dropdown-toggle");
-    let cancelTimeout;
-    triggerButton?.addEventListener("click", () => {
-      contentElem?.classList.toggle("hidden");
-      triggerButton.ariaExpanded = contentElem?.classList.contains("hidden")
-        ? "false"
-        : "true";
-    });
+  // Remove the previously attached handlers before the DOM is swapped out.
+  const detachDropdownInteractions = () => {
+    document.querySelectorAll(".nav-dropdown-group").forEach((group) => {
+      const handlers = dropdownState.handlers.get(group);
+      const contentElem = group.querySelector(".nav-dropdown-content");
+      const triggerButton = group.querySelector(".nav-dropdown-toggle");
 
-    group.addEventListener("mouseenter", () => {
-      contentElem?.classList.toggle("hidden", false);
-      if (triggerButton) {
-        triggerButton.ariaExpanded = "true";
+      if (!handlers || !contentElem || !triggerButton) {
+        return;
       }
-      clearTimeout(cancelTimeout);
-    });
 
-    group.addEventListener("mouseleave", () => {
-      cancelTimeout = setTimeout(() => {
-        if (triggerButton) {
-          triggerButton.ariaExpanded = "false";
-        }
-        contentElem?.classList.toggle("hidden", true);
-      }, 500);
+      triggerButton.removeEventListener("click", handlers.click);
+      group.removeEventListener("mouseenter", handlers.mouseenter);
+      group.removeEventListener("mouseleave", handlers.mouseleave);
+      group.removeEventListener("focusout", handlers.focusout);
+      contentElem.classList.toggle("hidden", true);
+      triggerButton.ariaExpanded = "false";
+      dropdownState.handlers.delete(group);
     });
-    group.addEventListener("focusout", (e) => {
-      // console.log(e.relatedTarget);
-      const isChildElem = group.contains(e.relatedTarget);
-      if (!isChildElem) {
-        cancelTimeout = setTimeout(() => {
-          if (triggerButton) {
-            triggerButton.ariaExpanded = "false";
-          }
-          contentElem?.classList.toggle("hidden", true);
-        }, 500);
-      }
-    });
-  });
+  };
+
+  // Register lifecycle hooks so the listeners are recreated after view transitions.
+  const registerViewTransitionHandlers = () => {
+    if (dropdownState.initialized) {
+      return;
+    }
+
+    document.addEventListener("astro:before-swap", detachDropdownInteractions);
+    document.addEventListener("astro:after-swap", attachDropdownInteractions);
+    dropdownState.initialized = true;
+  };
+
+  registerViewTransitionHandlers();
+  attachDropdownInteractions();
 </script>
