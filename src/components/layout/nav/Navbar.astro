@@ -213,21 +213,14 @@ import NavSubgroup from "./NavSubgroup.astro";
 </style>
 
 <script type="text/javascript">
-  const isDesktop = () => window.matchMedia("(min-width: 768px)").matches;
-
   const hideMobileMenu = () => {
     document
       .querySelector("#menu-toggle")
       ?.setAttribute("aria-expanded", "false");
   };
 
-  document.querySelector("#menu-toggle")?.addEventListener("click", () => {
-    const menuToggle = document.querySelector("#menu-toggle");
-    const isExpanded = menuToggle?.getAttribute("aria-expanded") === "true";
-    menuToggle?.setAttribute("aria-expanded", String(!isExpanded));
-  });
-
   window.addEventListener("keyup", (e) => {
+    console.log(e);
     if (e.key === "Escape") {
       hideMobileMenu();
       document.querySelector("#menu-toggle")?.focus();
@@ -239,13 +232,38 @@ import NavSubgroup from "./NavSubgroup.astro";
     hideMobileMenu();
   });
 
-  // Hide the mobile menu when focus moves outside of it
-  document
-    .querySelector("#menu-main-group")
-    ?.addEventListener("focusout", (e) => {
-      const menu = e.currentTarget;
-      if (!menu.contains(e.relatedTarget)) {
-        hideMobileMenu();
-      }
+  const menuToggleClick = () => {
+    const menuToggle = document.querySelector("#menu-toggle");
+    const isExpanded = menuToggle?.getAttribute("aria-expanded") === "true";
+    menuToggle?.setAttribute("aria-expanded", String(!isExpanded));
+  };
+  const menuMainFocusOut = (e) => {
+    const menu = e.currentTarget;
+    if (!menu.contains(e.relatedTarget)) {
+      hideMobileMenu();
+    }
+  };
+  const initMenu = () => {
+    document
+      .querySelector("#menu-toggle")
+      ?.addEventListener("click", menuToggleClick);
+
+    // Hide the mobile menu when focus moves outside of it
+    document
+      .querySelector("#menu-main-group")
+      ?.addEventListener("focusout", menuMainFocusOut);
+
+    document.addEventListener("astro:before-swap", () => {
+      // clear event listeners
+      document
+        .querySelector("#menu-toggle")
+        .removeEventListener("click", menuToggleClick);
+      document
+        .querySelector("#menu-main-group")
+        .removeEventListener("focusout", menuMainFocusOut);
     });
+  };
+
+  initMenu();
+  document.addEventListener("astro:after-swap", initMenu);
 </script>
