@@ -16,8 +16,8 @@ const typeQuery =
   types.length > 0
     ? `.filterBy('intendedTemplate',"in",["${types.join(`", "`)}"])`
     : "";
-const combinedQuery = cmsQuery + typeQuery;
-console.log(combinedQuery);
+const combinedQuery = cmsQuery + typeQuery + ".sortBy('modified','desc')";
+// console.log(combinedQuery);
 const pageParams = new URLSearchParams("");
 pageParams.append("query", query);
 pageParams.append("page", (page + 1).toString());
@@ -44,6 +44,9 @@ const pages = await loadFromCMS({
     organizationname: true,
     role: true,
     level: true,
+    modified: {
+      query: "page.modified('c')",
+    },
     hero: {
       query: `page.hero.safeResize(600)`,
       select: ["url", "width", "height"],
@@ -65,8 +68,8 @@ const pages = await loadFromCMS({
   },
 });
 const paginationData = pages.pagination;
+const unsortedPages: Array<any> = pages.data;
 
-const sortedPages = randomizeArray(pages.data);
 const startPage = (paginationData.page - 1) * PAGINATION_SIZE + 1;
 const endPage = startPage + pages.data.length - 1;
 const hasResults = paginationData.total > 0;
@@ -80,7 +83,7 @@ const resultsMsg = hasResults
 <p>{resultsMsg}</p>
 
 <!-- <pre>{JSON.stringify(pages,null,5)}</pre> -->
-<CardFeed pageData={sortedPages} />
+<CardFeed pageData={unsortedPages} />
 {
   hasResults && (
     <Pagination
