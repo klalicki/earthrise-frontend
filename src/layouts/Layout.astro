@@ -5,11 +5,12 @@ import Footer from "../components/layout/page/Footer.astro";
 import PageBody from "../components/layout/page/PageBody.astro";
 import { Icon } from "astro-icon/components";
 import { ClientRouter } from "astro:transitions";
+import SkipLink from "../components/layout/SkipLink.astro";
 
 const { title } = Astro.props;
 Astro.response.headers.set(
   "CDN-Cache-Control",
-  "public, max-age=120, stale-while-revalidate=3600"
+  "public, max-age=120, stale-while-revalidate=3600",
 );
 ---
 
@@ -24,15 +25,20 @@ Astro.response.headers.set(
     <DesignTokens />
     <ClientRouter />
     <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HNTNLC9QNX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HNTNLC9QNX"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-  gtag('config', 'G-HNTNLC9QNX');
-</script>
+      gtag("config", "G-HNTNLC9QNX");
+    </script>
   </head><body>
+    <SkipLink  />
+
     <div class="under-construction" transition:persist>
       <Icon name="fa7-solid:hammer" class="uc-icon" />
       <span

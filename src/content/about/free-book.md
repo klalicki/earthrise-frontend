@@ -2,7 +2,7 @@
 
 The entire contents of the book are available for free open access via SpringerLink. Read more than 60 case studies on sustainability education in all subject areas from college faculty around the world, see related resources, and find lesson plans and submit your own.
 
-<a class="ec-button">See Table of Contents</a>
+<a class="ec-button" href="/table-of-contents">See Table of Contents</a>
 
 Our Open Access book, Sustainability Learning for Action and Community Engagement (Palgrave Macmillan Springer Nature, to be published in 2025), brings together 50 people who teach sustainability in better and different, hands-on, and enlivening ways. Most work at SUNY schools. We also include voices from South Africa, Spain, Saudi Arabia, and Switzerland. Good ideas come when different people share their thoughts across cultures and disciplines.
 

@@ -30,6 +30,10 @@ const pages = await loadFromCMS({
     },
   },
 });
+// throw 404 instead of generic error if the page doesn't exist
+if (pages == null) {
+  return Astro.rewrite("/404");
+}
 ---
 
 <Layout
