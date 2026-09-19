@@ -7,7 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "build:tokens":"node design-tokens/tokens.ts"
+    "build:tokens": "node design-tokens/tokens.ts"
   },
   "dependencies": {
     "@acab/reset.css": "^0.11.0",
@@ -22,5 +22,8 @@
     "axios": "^1.11.0",
     "hash-it": "^6.0.0",
     "yaml": "^2.8.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.8"
   }
 }

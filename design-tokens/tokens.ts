@@ -1,4 +1,6 @@
 import fs from 'node:fs';
+import prettier from "prettier";
+
 
 const baseColors = {
   "neutral-100": "#fffefc",
@@ -100,6 +102,6 @@ const generateCSS = () => {
 
 
 console.log('building design tokens');
-const finalCSS = generateCSS();
+const finalCSS = await prettier.format(generateCSS(),{ parser: "css" });
 
 fs.writeFileSync('tokens.test.css', finalCSS);
