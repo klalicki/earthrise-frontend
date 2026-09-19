@@ -16,8 +16,6 @@ const { class: className } = Astro.props;
 
 <style>
   .coc-block {
-    background-color: var(--color-background);
-    color: var(--color-text);
     max-width: 100%;
     padding-top: 6rem;
     padding-bottom: 6rem;
@@ -41,9 +39,9 @@ const { class: className } = Astro.props;
     left: -1rem;
     right: -1rem;
     bottom: -1rem;
-    background: var(--color-background);
     opacity: 0.8;
     z-index: -1;
+    background: var(--color-local-background);
   }
   .coc-graphic {
     background-size: contain;
