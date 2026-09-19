@@ -35,7 +35,7 @@ import { Image } from 'astro:assets';
               class="really-hidden"
               value={pageType.value} checked={props.types.includes(pageType.value)}
             />
-            <label class="filter-label" style={`--color-filter:${pageType.color}`} for={pageType.value}>
+            <label class="filter-label" style={`--color-component-filter:${pageType.color}`} for={pageType.value}>
               <Image src={pageType.Graphic} alt=""  class={"filter-label-img"}></Image>
             <span class="filter-label-text">
              {pageType.label} </span>  </label>
@@ -67,8 +67,8 @@ grid-template-columns: 1fr 1fr;  gap:.5rem;
   justify-content: center;
   align-items: stretch;
   /* padding:1rem; */
-  border: 2px solid var(--color-filter);
-  color: var(--color-filter);
+  border: 2px solid var(--color-component-filter);
+  color: var(--color-component-filter);
   border-radius:.5rem;
   font-weight:600;
 }
@@ -89,7 +89,7 @@ opacity: .25;
 }
 .filter-label::after{
   content:"";
-  background-color: var(--color-filter);
+  background-color: var(--color-component-filter);
   position: absolute;
   left:0;top:0;right:0;bottom:0;
   z-index: -10;
@@ -103,8 +103,8 @@ opacity: .25;
 }
 
 input:checked+.filter-label{
-  background-color: var(--color-filter);
-  color: var(--color-theme-background);
+  background-color: var(--color-component-filter);
+  color: var(--color-local-background);
 }
 input:checked+.filter-label .filter-label-img{
  opacity:1;
@@ -114,6 +114,8 @@ button{
   text-align: center;
   border-radius:.5rem;
   padding:1rem;
+  background-color: var(--color-local-cta-background);
+  color:var(--color-local-cta-text);
 }
 
       .really-hidden {

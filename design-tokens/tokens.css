@@ -37,7 +37,7 @@
   /* theme: light */
   --color-light-background: var(--color-base-neutral-100);
   --color-light-text: var(--color-base-neutral-700);
-  --color-light-border: var(--color-base-neutral-500);
+  --color-light-border: var(--color-base-neutral-300);
   --color-light-cta-background: var(--color-base-blue-500);
   --color-light-cta-text: var(--color-base-neutral-100);
   --color-light-accent-a: var(--color-base-blue-500);
@@ -48,7 +48,7 @@
   /* theme: dark */
   --color-dark-background: var(--color-base-neutral-700);
   --color-dark-text: var(--color-base-neutral-100);
-  --color-dark-border: var(--color-base-neutral-300);
+  --color-dark-border: var(--color-base-neutral-500);
   --color-dark-cta-background: var(--color-base-orange-500);
   --color-dark-cta-text: var(--color-base-neutral-700);
   --color-dark-accent-a: var(--color-base-blue-500);
