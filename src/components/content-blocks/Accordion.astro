@@ -15,8 +15,8 @@ const { title, group } = Astro.props;
 </details>
 <style>
   .ec-accordion {
-    background-color: var(--color-background);
-    color: var(--color-text);
+    background-color: var(--color-light-background);
+    color: var(--color-light-text);
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
@@ -26,13 +26,13 @@ const { title, group } = Astro.props;
     border: 1px solid var(--color-local-border);
     border-radius: 0.6rem;
     position: relative;
-    background-color: var(--color-theme-background);
+    background-color: var(--color-light-background);
   }
   summary {
     padding: 1.5rem 3rem;
     font-weight: 700;
     font-size: 1.5rem;
-    color: var(--color-theme-accent-a);
+    color: var(--color-base-blue-500);
     list-style: none;
   }
 
@@ -60,7 +60,7 @@ const { title, group } = Astro.props;
   .accordion-toggle::before,
   .accordion-toggle::after {
     content: "";
-    background-color: var(--color-theme-accent-a);
+    background-color: var(--color-base-blue-500);
     width: 100%;
     position: absolute;
     top: calc(50% - 2px);
