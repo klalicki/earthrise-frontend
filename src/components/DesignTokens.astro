@@ -2,25 +2,17 @@
 import "@acab/reset.css";
 import "@fontsource-variable/lexend";
 import "@fontsource/poppins";
-import "./tokens.css";
+import "./../../design-tokens/tokens.css";
 ---
 
 <style is:global>
+  * {
+    color: var(--color-local-text);
+  }
   :root {
     /* theme color palettes: semantic */
 
-    --color-light-background: var(--color-neutral-100);
-    --color-light-text: var(--color-neutral-700);
-    --color-light-border: var(--color-neutral-500);
-
-    --color-dark-background: var(--color-neutral-700);
-    --color-dark-text: var(--color-neutral-100);
-    --color-dark-border: var(--color-neutral-300);
-
-    --color-local-background: var(--color-light-background);
-    --color-local-text: var(--color-light-text);
-    --color-local-border: var(--color-light-border);
-
+    /*
     --color-theme-background: #fffefc;
     --color-background: var(--color-theme-background);
     --color-theme-text: #28232c;
@@ -36,7 +28,7 @@ import "./tokens.css";
     --color-category-d: #fd5d36;
 
     --color-theme-tag: #dedede;
-    --color-theme-border: #a9a9a9;
+    --color-theme-border: #a9a9a9; */
 
     --gradient-stepped-rainbow: linear-gradient(
       90deg,
@@ -69,8 +61,8 @@ import "./tokens.css";
 
     font-family: var(--font-main);
     font-weight: 300;
-    color: var(--color-text);
-    background-color: var(--color-background);
+    color: var(--color-local-text);
+    background-color: var(--color-local-background);
 
     font-size: 16px;
   }
@@ -168,20 +160,20 @@ import "./tokens.css";
   }
 
   .theme-dark {
-    --color-local-background: var(--color-dark-background);
+    /* --color-local-background: var(--color-dark-background);
     --color-local-text: var(--color-dark-text);
     --color-local-cta: var(--color-orange-500);
     --color-local-cta-text: var(--color-dark-background);
-    --color-local-border: var(--color-dark-border);
+    --color-local-border: var(--color-dark-border); */
     font-weight: 300;
   }
   .theme-light {
     font-weight: 300;
-    --color-local-background: var(--color-light-background);
+    /* --color-local-background: var(--color-light-background);
     --color-local-text: var(--color-light-text);
     --color-local-cta: var(--color-blue-500);
     --color-local-cta-text: var(--color-light-background);
-    --color-local-border: var(--color-light-border);
+    --color-local-border: var(--color-light-border); */
   }
   /*   * {
     border: 1px solid red !important;
