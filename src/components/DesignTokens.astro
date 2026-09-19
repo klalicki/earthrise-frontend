@@ -2,61 +2,24 @@
 import "@acab/reset.css";
 import "@fontsource-variable/lexend";
 import "@fontsource/poppins";
+import "./tokens.css";
 ---
 
 <style is:global>
   :root {
-
-    /* Neutral */
-    --color-neutral-100: #fffefc;
-    --color-neutral-300: #d4d1cb;
-    --color-neutral-500: #736b7a;
-    --color-neutral-700: #28232c;
-    --color-neutral-900: #1b171f;
-
-    /* Primary Accent (blue) */
-    --color-blue-100: #e6ebf5;
-    --color-blue-500: #26417b;
-    --color-blue-300: #8eaadc;
-    --color-blue-700: #192a52;
-    --color-blue-900: #0f1a33;
-
-    /* Secondary Accent (orange) */
-    --color-orange-100: #fff4e6;
-    --color-orange-300: #ffcf96;
-    --color-orange-500: #ffb155;
-    --color-orange-700: #c77e24;
-    --color-orange-900: #824f11;
-
-    /* Green */
-
-    --color-green-100: #e2f5ee;
-    --color-green-300: #68c79f;
-    --color-green-500: #177b51;
-    --color-green-700: #105237;
-    --color-green-900: #0a3322;
-
-    /* Purple */
-    --color-purple-100: #f2e9f7;
-    --color-purple-300: #b08cc2;
-    --color-purple-500: #6b358a;
-    --color-purple-700: #4a2161;
-    --color-purple-900: #2d103d;
-
-    /* Red */
-    --color-red-100: #ffede9;
-    --color-red-300: #fe9f87;
-    --color-red-500: #fd5d36;
-    --color-red-700: #c23815;
-    --color-red-900: #80230b;
-
     /* theme color palettes: semantic */
 
     --color-light-background: var(--color-neutral-100);
     --color-light-text: var(--color-neutral-700);
+    --color-light-border: var(--color-neutral-500);
 
     --color-dark-background: var(--color-neutral-700);
     --color-dark-text: var(--color-neutral-100);
+    --color-dark-border: var(--color-neutral-300);
+
+    --color-local-background: var(--color-light-background);
+    --color-local-text: var(--color-light-text);
+    --color-local-border: var(--color-light-border);
 
     --color-theme-background: #fffefc;
     --color-background: var(--color-theme-background);
@@ -71,9 +34,9 @@ import "@fontsource/poppins";
     --color-category-b: #177b51;
     --color-category-c: #28232c;
     --color-category-d: #fd5d36;
-    --color-tags: #dedede;
-    --color-borders: #a9a9a9;
-    --color-border: var(--color-borders);
+
+    --color-theme-tag: #dedede;
+    --color-theme-border: #a9a9a9;
 
     --gradient-stepped-rainbow: linear-gradient(
       90deg,
@@ -205,18 +168,20 @@ import "@fontsource/poppins";
   }
 
   .theme-dark {
-    --color-background: var(--color-theme-text);
-    --color-text: var(--color-theme-background);
-    --color-cta: var(--color-theme-accent-b);
-    --color-cta-text: var(--color-theme-text);
+    --color-local-background: var(--color-dark-background);
+    --color-local-text: var(--color-dark-text);
+    --color-local-cta: var(--color-orange-500);
+    --color-local-cta-text: var(--color-dark-background);
+    --color-local-border: var(--color-dark-border);
     font-weight: 300;
   }
   .theme-light {
     font-weight: 300;
-    --color-background: var(--color-theme-background);
-    --color-text: var(--color-theme-text);
-    --color-cta: var(--color-theme-accent-a);
-    --color-cta-text: var(--color-theme-background);
+    --color-local-background: var(--color-light-background);
+    --color-local-text: var(--color-light-text);
+    --color-local-cta: var(--color-blue-500);
+    --color-local-cta-text: var(--color-light-background);
+    --color-local-border: var(--color-light-border);
   }
   /*   * {
     border: 1px solid red !important;
@@ -237,7 +202,7 @@ import "@fontsource/poppins";
   }
   td,
   th {
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-local-border);
     padding: 1.5rem;
   }
   thead {
