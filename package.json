@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:tokens":"node design-tokens/tokens.ts"
   },
   "dependencies": {
     "@acab/reset.css": "^0.11.0",
