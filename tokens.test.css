@@ -40,3 +40,12 @@
   /* theme: dark */
   --color-dark-background: var(--color-base-neutral-700);
 }
+/* APPLY VARIABLES LOCALLY */
+.theme-light {
+  /* theme: light */
+  --color-local-background: var(--color-light-background);
+}
+.theme-dark {
+  /* theme: dark */
+  --color-local-background: var(--color-dark-background);
+}
