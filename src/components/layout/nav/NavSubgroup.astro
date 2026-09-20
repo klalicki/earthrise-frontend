@@ -50,6 +50,9 @@ interface Props {
       align-items: stretch;
       text-align: left;
       margin-top: -1rem;
+      background-color: var(--color-light-background);
+      z-index: 100;
+      border: 1px solid var(--color-light-border);
     }
 
     .nav-dropdown-content > :global(*) {
@@ -85,7 +88,7 @@ interface Props {
       display: flex;
       align-items: stretch;
       flex-direction: column;
-      background-color: var(--color-background);
+      /* background-color: var(--color-background); */
       padding: 0rem;
       z-index: 100;
     }

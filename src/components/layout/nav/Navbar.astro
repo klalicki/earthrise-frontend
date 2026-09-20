@@ -2,9 +2,12 @@
 import EcLogo from "../../../assets/ec-logo-plain.svg";
 const navItems = [
   { label: "Explore", href: "/explore" },
-  { label: "About", href: "/about" },
-  { label: "Code of Conduct", href: "/code-of-conduct" },
-  { label: "Call for Submissions", href: "/submissions" },
+  {
+    label: "About",
+    href: "/about",
+    subItems: [{ label: "Code of Conduct", href: "/code-of-conduct" }],
+  },
+  // { label: "Call for Submissions", href: "/submissions" },
   { label: "Blog", href: "/blog", isNew: true },
   // {
   //   label: "Has submenu",
