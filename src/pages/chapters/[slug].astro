@@ -71,7 +71,7 @@ const pageFiles = await loadFromCMS({
       <HeroImage data={""} uuid={rawData.uuid} />
     </Fragment>
   </PageHero>
-  <div class="chapter-block">
+  <div class="chapter-block theme-dark">
     <Image inferSize src={ChapterBG} alt="" class="chapter-block-image" />
 
     <div class="chapter-block-content padded-content-container">
@@ -103,13 +103,13 @@ const pageFiles = await loadFromCMS({
       height: auto;
       /* background-color: red; */
       position: relative;
-      --color-background: var(--color-theme-text);
-      --color-text: var(--color-theme-background);
+      --color-background: var(--color-local-text);
+      --color-text: var(--color-local-background);
     }
 
     .chapter-block {
-      background-color: var(--color-background);
-      color: var(--color-text);
+      background-color: var(--color-local-background);
+      color: var(--color-local-text);
       /* font-weight: 400; */
       display: grid;
       grid-template-columns: 1fr var(--size-padded-content) 1fr;
@@ -135,7 +135,7 @@ const pageFiles = await loadFromCMS({
       left: -2rem;
       right: -2rem;
       bottom: -1rem;
-      background: var(--color-background);
+      background: var(--color-local-background);
       opacity: 0.8;
       z-index: -1;
     }
