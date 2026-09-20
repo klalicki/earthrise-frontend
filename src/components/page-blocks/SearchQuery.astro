@@ -15,7 +15,8 @@ const cmsQuery = query ? `site.search('${query}')` : "site.index.children";
 const typeQuery =
   types.length > 0
     ? `.filterBy('intendedTemplate',"in",["${types.join(`", "`)}"])`
-    : "";
+    : `.filterBy('intendedTemplate',"in",["article", "chapter", "lesson", "person"])`;
+console.log(typeQuery);
 const combinedQuery = cmsQuery + typeQuery + ".sortBy('modified','desc')";
 // console.log(combinedQuery);
 const pageParams = new URLSearchParams("");
