@@ -2,27 +2,16 @@
 import "@acab/reset.css";
 import "@fontsource-variable/lexend";
 import "@fontsource/poppins";
+import "./../../design-tokens/tokens.css";
 ---
 
 <style is:global>
+  :where(.theme-dark, .theme-light) {
+    background-color: var(--color-local-background);
+    color: var(--color-local-text);
+  }
   :root {
-    --color-theme-background: #fffefc;
-    --color-background: var(--color-theme-background);
-    --color-background-card: #38313e;
-    --color-theme-text: #28232c;
-    --color-text: var(--color-theme-text);
-    --color-headings: var(--color-theme-accent-b);
-    --color-theme-accent-a: #26417b;
-    --color-theme-accent-b: #ffb155;
-    --color-cta: var(--color-theme-accent-a);
-    --color-cta-text: var(--color-theme-background);
-    --color-category-a: #26417b;
-    --color-category-b: #177b51;
-    --color-category-c: #28232c;
-    --color-category-d: #fd5d36;
-    --color-tags: #dedede;
-    --color-borders: #a9a9a9;
-    --color-border: var(--color-borders);
+    /* theme color palettes: semantic */
 
     --gradient-stepped-rainbow: linear-gradient(
       90deg,
@@ -55,18 +44,18 @@ import "@fontsource/poppins";
 
     font-family: var(--font-main);
     font-weight: 300;
-    color: var(--color-text);
-    background-color: var(--color-background);
+    color: var(--color-local-text);
+    background-color: var(--color-local-background);
 
     font-size: 16px;
   }
 
   input {
-    background-color: var(--color-background);
+    background-color: var(--color-local-background);
   }
   button {
-    background-color: var(--color-category-a);
-    color: var(--color-background);
+    background-color: var(--color-local-cta-background);
+    color: var(--color-local-cta-text);
   }
   p,
   dl,
@@ -139,33 +128,36 @@ import "@fontsource/poppins";
   .ec-button {
     padding: 0.75rem 1.5rem;
     border-radius: 6px;
-    background-color: var(--color-cta);
-    border: 2px solid var(--color-cta);
-    color: var(--color-cta-text);
+    background-color: var(--color-local-cta-background);
+    border: 2px solid var(--color-local-cta-background);
+    color: var(--color-local-cta-text);
     text-decoration: none;
     display: inline-flex;
     gap: 0.5em;
     font-weight: 500;
   }
+
   .ec-button:hover,
   .ec-button:focus {
-    background-color: var(--color-cta-text);
-    color: var(--color-cta);
+    background-color: var(--color-local-cta-text);
+    color: var(--color-local-cta);
   }
 
   .theme-dark {
-    --color-background: var(--color-theme-text);
-    --color-text: var(--color-theme-background);
-    --color-cta: var(--color-theme-accent-b);
-    --color-cta-text: var(--color-theme-text);
+    /* --color-local-background: var(--color-dark-background);
+    --color-local-text: var(--color-dark-text);
+    --color-local-cta: var(--color-orange-500);
+    --color-local-cta-text: var(--color-dark-background);
+    --color-local-border: var(--color-dark-border); */
     font-weight: 300;
   }
   .theme-light {
     font-weight: 300;
-    --color-background: var(--color-theme-background);
-    --color-text: var(--color-theme-text);
-    --color-cta: var(--color-theme-accent-a);
-    --color-cta-text: var(--color-theme-background);
+    /* --color-local-background: var(--color-light-background);
+    --color-local-text: var(--color-light-text);
+    --color-local-cta: var(--color-blue-500);
+    --color-local-cta-text: var(--color-light-background);
+    --color-local-border: var(--color-light-border); */
   }
   /*   * {
     border: 1px solid red !important;
@@ -186,7 +178,7 @@ import "@fontsource/poppins";
   }
   td,
   th {
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--color-local-border);
     padding: 1.5rem;
   }
   thead {

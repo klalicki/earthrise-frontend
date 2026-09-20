@@ -15,7 +15,7 @@ Astro.response.headers.set(
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="theme-light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -36,8 +36,8 @@ Astro.response.headers.set(
 
       gtag("config", "G-HNTNLC9QNX");
     </script>
-  </head><body>
-    <SkipLink  />
+  </head><body class="">
+    <SkipLink />
 
     <div class="under-construction" transition:persist>
       <Icon name="fa7-solid:hammer" class="uc-icon" />
@@ -71,7 +71,8 @@ Astro.response.headers.set(
     gap: 0.5rem;
     padding: 0.5rem;
     text-align: center;
-    background-color: var(--color-theme-accent-b);
+    background-color: var(--color-base-orange-500);
+    color: var(--color-base-blue-700);
   }
   .uc-icon {
     flex-shrink: 0;

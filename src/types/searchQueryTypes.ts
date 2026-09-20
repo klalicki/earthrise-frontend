@@ -13,25 +13,25 @@ export const pageTypes = [
   {
     label: "Article",
     value: "article",
-    color: "var(--color-category-a)",
+    color: "var(--color-local-accent-a)",
     Graphic: articles,
   },
   {
     label: "Chapter",
     value: "chapter",
-    color: "var(--color-category-b)",
+    color: "var(--color-local-accent-b)",
     Graphic: chapters,
   },
   {
     label: "Lesson",
     value: "lesson",
-    color: "var(--color-category-c)",
+    color: "var(--color-local-accent-c)",
     Graphic: lessons,
   },
   {
     label: "Person",
     value: "person",
-    color: "var(--color-category-d)",
+    color: "var(--color-local-accent-d)",
     Graphic: people,
   },
 ];

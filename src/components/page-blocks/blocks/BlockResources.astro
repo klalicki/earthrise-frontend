@@ -27,7 +27,7 @@ const processedItems = await Promise.all(
         fileObj.extension + " - " + formatBytes(fileObj.size);
     }
     return returnObj;
-  })
+  }),
 );
 ---
 
@@ -36,9 +36,9 @@ const processedItems = await Promise.all(
     {
       processedItems.map((item) => {
         return (
-          <li class="resource-group">
+          <li class="resource-group theme">
             <div class="resource-icon">
-              <Icon name={item.icon} />
+              <Icon name={item.icon} class={"theme-light"} />
             </div>
             <div class="resource-panel">
               <h3>

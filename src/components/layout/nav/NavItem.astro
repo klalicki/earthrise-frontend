@@ -31,7 +31,7 @@ const linkType = getElementType();
   linkType === "a" && (
     <a class:list={["nav-item", isCurrent && "nav-item-current"]} href={href}>
       <span>{label}</span>
-      {isNew && <span class="ec-pill ec-pill-red">New!</span>}
+      {isNew && <span class="ec-pill">New!</span>}
       {/* <slot /> */}
     </a>
   )
@@ -53,6 +53,9 @@ const linkType = getElementType();
     opacity: 0.33;
     pointer-events: none;
   }
+  .nav-item:not(.nav-item-inert):hover {
+    background-color: var(--color-base-blue-100);
+  }
 
   .ec-pill {
     padding: 0.125rem 0.25rem;
@@ -61,8 +64,8 @@ const linkType = getElementType();
     /* align-self: start; */
     font-weight: 500;
     font-size: 0.75em;
-    background-color: var(--color-category-a);
-    color: var(--color-theme-background);
+    background-color: var(--color-base-blue-500);
+    color: var(--color-base-neutral-100);
   }
 
   @media screen and (min-width: 900px) {

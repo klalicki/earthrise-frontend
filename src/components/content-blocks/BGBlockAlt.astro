@@ -24,7 +24,7 @@ for (let i = 0; i < 4; i++) {
 }
 ---
 
-<div class="bg-block">
+<div class="bg-block theme-dark">
   <div class="bg-block-content padded-content-container">
     <slot />
   </div>
@@ -60,18 +60,18 @@ for (let i = 0; i < 4; i++) {
 </div>
 <style>
   .bg-block {
-    --color-background: var(--color-theme-text);
-    --color-text: var(--color-theme-background);
+    --color-background: var(--color-local-text);
+    --color-text: var(--color-local-background);
   }
 </style>
 <style>
   .bg-block {
-    background-color: var(--color-background);
-    color: var(--color-text);
+    background-color: var(--color-local-background);
+    color: var(--color-local-text);
     font-weight: 400;
     display: grid;
     grid-template-columns: 1fr var(--size-padded-content) 1fr;
-    
+
     grid-template-rows: 8rem min-content 9rem;
     max-width: 100%;
     width: 100%;

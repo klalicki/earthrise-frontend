@@ -6,7 +6,7 @@ const defaultImgSrc = TOCHero.src;
 ---
 
 <div
-  class:list={["graphic-hero-frame", className]}
+  class:list={["graphic-hero-frame", className, "theme-dark"]}
   style={`background-image: url(${imgSrc || defaultImgSrc});`}
 >
   <h1>{title}</h1>
@@ -20,7 +20,6 @@ const defaultImgSrc = TOCHero.src;
     border-radius: 0.5rem;
     overflow: hidden;
     position: relative;
-    margin-bottom: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,7 +41,6 @@ const defaultImgSrc = TOCHero.src;
     padding: 1rem;
     text-align: center;
     text-wrap: balance;
-    color: var(--color-background);
-    background-color: var(--color-text);
+
   }
 </style>

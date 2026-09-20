@@ -2,9 +2,12 @@
 import EcLogo from "../../../assets/ec-logo-plain.svg";
 const navItems = [
   { label: "Explore", href: "/explore" },
-  { label: "About", href: "/about" },
-  { label: "Code of Conduct", href: "/code-of-conduct" },
-  { label: "Call for Submissions", href: "/submissions" },
+  {
+    label: "About",
+    href: "/about",
+    subItems: [{ label: "Code of Conduct", href: "/code-of-conduct" }],
+  },
+  // { label: "Call for Submissions", href: "/submissions" },
   { label: "Blog", href: "/blog", isNew: true },
   // {
   //   label: "Has submenu",
@@ -70,7 +73,7 @@ import NavSubgroup from "./NavSubgroup.astro";
     justify-content: center;
     align-items: flex-start;
     padding: var(--size-page-padding);
-    border-bottom: 1px solid var(--color-borders);
+    border-bottom: 1px solid var(--color-local-border);
   }
   .nav-wrapper {
     display: flex;
@@ -110,7 +113,7 @@ import NavSubgroup from "./NavSubgroup.astro";
     z-index: 9999;
     transform: none;
     transition: all 0.3s;
-    background-color: var(--color-background);
+    background-color: var(--color-light-background);
     /* backdrop-filter: blur(20px); */
   }
 
@@ -132,7 +135,7 @@ import NavSubgroup from "./NavSubgroup.astro";
     flex-direction: column;
     align-items: center;
     background-color: transparent;
-    color: var(--color-text);
+    color: var(--color-local-text);
   }
 
   .menu-toggle-icon {

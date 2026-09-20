@@ -11,7 +11,7 @@ import PageTypeFilter from "../components/page-blocks/PageTypeFilter.astro";
 ---
 
 <Layout>
-  <div class="search-box">
+  <div class="search-box theme-dark">
     <div class="search-box-content">
       <p>earthrise commons</p>
       <h1>the journey toward a sustainable future is here!</h1>
@@ -36,9 +36,8 @@ import PageTypeFilter from "../components/page-blocks/PageTypeFilter.astro";
 
 <style>
   .search-box {
-    color: var(--color-background);
     padding: 3rem 1rem;
-    /* background-color: lightgray; */
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -69,11 +68,14 @@ import PageTypeFilter from "../components/page-blocks/PageTypeFilter.astro";
     font-size: 1rem;
     font-weight: 400;
     border-radius: 0.5rem 0rem 0 0.5rem;
-    color: var(--color-text);
+    color: var(--color-light-text);
+    background-color: var(--color-light-background);
   }
   form button {
     border-radius: 0 0.5rem 0.5rem 0;
     padding: 0.5rem 1rem;
+    background-color: var(--color-light-cta-background);
+    color: var(--color-light-cta-text);
   }
   .search-img {
     position: absolute;
