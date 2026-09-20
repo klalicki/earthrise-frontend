@@ -38,7 +38,7 @@ const themeNames = ['light', 'dark'] as const;
 const themes: ColorPalette = {
   background: { light: 'neutral-100', dark: 'neutral-700' },
   text: { light: 'neutral-700', dark: 'neutral-100' },
-  border: { light: 'neutral-300', dark: 'neutral-500' },
+  border: { light: 'neutral-500', dark: 'neutral-300' },
   'cta-background': { light: 'blue-500', dark: 'orange-500' },
   'cta-text': { light: 'neutral-100', dark: 'neutral-700' },
   'accent-a': { light: "blue-500", dark: 'blue-500' },
