@@ -2,19 +2,21 @@
 import Navbar from "../nav/Navbar.astro";
 import FooterNav from "../nav/FooterNav.astro";
 import { Icon } from "astro-icon/components";
+import { getPageContents } from "../../../cms/getPageContents";
+const footerArticles = await getPageContents("footer");
 ---
 
 <footer class="theme-dark">
   <FooterNav />
   <div class="footer-content-wrapper">
     <div class="footer-col text-block">
-      <h2>Contact Us</h2>
-      <p>
+      <h2>{footerArticles["contact"].headline}</h2>
+      <Fragment set:html={footerArticles["contact"].content} <p>
         Earthrise Commons invites educators, community leaders, and
         sustainability practitioners to contribute to our sustainability
         education and community engagement learning commons. We are not just a
         collection of lesson plans, but a community of educators!
-      </p>
+      </Fragment>
       <p>
         We look forward to your submissions of innovative approaches to
         sustainability education and community engagement!
