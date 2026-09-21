@@ -1,5 +1,6 @@
 ---
 import { loadFromCMS } from "../cms/loadFromCMS";
+import { getPageContents } from "../cms/getPageContents";
 import Layout from "../layouts/Layout.astro";
 import BookCover from "../assets/images/book-cover.webp";
 import { Image } from "astro:assets";
@@ -13,6 +14,9 @@ const sectionTitles = {
   ch6: "V. Engaging Communities: Campus and Region as Living Laboratories",
   ch7: "VI. Reimagining and Remixing Materials for Circular Cycles: Sourcing - Design - Disposal",
 };
+
+const pageArticles = await getPageContents('open-access-book');
+
 
 const chapterData = [];
 const authorData = [];
@@ -58,13 +62,8 @@ for (const [sectionID, sectionTitle] of Object.entries(sectionTitles)) {
 
   <div class="book-card">
     <div class="book-card-text">
-      <h2>Browse the book</h2>
-      <p>
-        The entire contents of the book are available for free open access via
-        SpringerLink. Read more than 60 case studies on sustainability education
-        in all subject areas from college faculty around the world, see related
-        resources, and find lesson plans and submit your own.
-      </p>
+      <h2>{pageArticles['intro'].headline}</h2>
+      <Fragment set:html={pageArticles['intro'].content}/>
       <a
         class="ec-button"
         href="https://link.springer.com/book/10.1007/978-3-032-11698-7"
