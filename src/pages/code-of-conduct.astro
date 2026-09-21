@@ -7,6 +7,8 @@ import Conduct2 from "../components/special-blocks/Conduct2.astro";
 import InPageNav from "../components/layout/nav/InPageNav.astro";
 import Banner from "../components/content-blocks/Banner.astro";
 import { Icon } from "astro-icon/components";
+import { getPageContents } from "../cms/getPageContents";
+const pageArticles = await getPageContents("code-of-conduct");
 ---
 
 <Layout title="Code of Conduct">
@@ -114,36 +116,13 @@ import { Icon } from "astro-icon/components";
   </dl>
   <Conduct2
     ><h2 id="your-rights-and-responsibilities">
-      Your Rights and Responsibilities
+      {pageArticles["your-rights"].headline}
     </h2>
-    <p>You have the right to:</p>
-    <ul>
-      <li>Access all community resources freely</li>
-      <li>Receive proper attribution for your contributions</li>
-      <li>Appeal decisions you think are wrong</li>
-      <li>Participate in community discussions about platform changes</li>
-    </ul>
-    <p>You're responsible for:</p>
-    <ul>
-      <li>Following copyright and licensing rules</li>
-      <li>Being respectful in all interactions</li>
-      <li>Contributing positively to the community</li>
-      <li>Helping maintain the commons for everyone</li>
-    </ul>
+    <Fragment set:html={pageArticles["your-rights"].content} />
   </Conduct2>
-  <h2 id="getting-started">Getting Started</h2>
+  <h2 id="getting-started">{pageArticles["getting-started"].headline}</h2>
+  <Fragment set:html={pageArticles["getting-started"].content} />
 
-  <p><strong>Getting started is easy:</strong></p>
-  <p>Share your first resource with proper licensing.</p>
-  <p>
-    The difference: <strong>CC BY</strong> allows anyone (including companies) to
-    use your work for any purpose, while
-    <strong>CC BY-NC</strong> restricts commercial use, which is important when you’re
-    working with content that originally belonged to someone else.
-  </p>
-  <p>Introduce yourself to the community.</p>
-  <p>Connect with the Gardener if you need help.</p>
-  <p>Explore what others have shared and provide feedback.</p>
   <p>
     <a href="/contribute" class="ec-button contribute-button"
       >Contribute a Project</a
