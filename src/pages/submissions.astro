@@ -6,9 +6,7 @@ import TwoCol from "../components/content-blocks/TwoCol.astro";
 import ImageGroup from "../components/content-blocks/ImageGroup.astro";
 import InPageNav from "../components/layout/nav/InPageNav.astro";
 import KantrowitzPainting from "../assets/images/art-andrea-kantrowitz.jpg";
-import CFS1 from "../content/call-for-submissions/cfs-1.md";
-import CFS2 from "../content/call-for-submissions/cfs-2.md";
-import CFS3 from "../content/call-for-submissions/cfs-3.md";
+
 import Banner from "../components/content-blocks/Banner.astro";
 import Accordion from "../components/content-blocks/Accordion.astro";
 import Img1 from "../assets/images/cfs-img-1.jpg";
@@ -20,26 +18,18 @@ import { Icon } from "astro-icon/components";
 import CFSTable1 from "../content/call-for-submissions/CFSTable1.astro";
 import CFSTable2 from "../content/call-for-submissions/CFSTable2.astro";
 import CFSTable3 from "../content/call-for-submissions/CFSTable3.astro";
+
+import { getPageContents } from "../cms/getPageContents";
+
+const pageArticles = await getPageContents("submissions");
 ---
 
 <Layout title="Call for Submissions">
   <GraphicHero title="Call for Submissions" imgSrc={CFSHero.src} />
   <TwoCol class="no-margin-after">
     <Fragment slot="left">
-      <h2>About Earthrise Commons</h2>
-      <p>
-        Earthrise Commons will serve as a digital resource companion to our Open
-        Access book, featuring projects that highlight how sustainability
-        education and community engagement are being integrated into courses,
-        programs, and community initiatives worldwide. These submissions will
-        celebrate diverse approaches to sustainability education and offer
-        actionable insights and models that can be adapted by other institutions
-        and communities to enhance learner engagement, equity, and impact.
-      </p><p>
-        Selected submissions are a form of publishing that you can use to build
-        community, advance ideas, and sprinkle some sustainability learning and
-        community engagement into your teaching, no matter your field of study.
-      </p>
+      <h2>{pageArticles["about"].headline}</h2>
+      <Fragment set:html={pageArticles["about"].content} />
     </Fragment>
     <Fragment slot="right">
       <ImageGroup
@@ -62,7 +52,8 @@ import CFSTable3 from "../content/call-for-submissions/CFSTable3.astro";
       },
     ]}
   />
-  <CFS1 />
+  <h2>{pageArticles["why-contribute"].headline}</h2>
+  <Fragment set:html={pageArticles["why-contribute"].content} />
   <Banner icon="a" color="a"
     >At Earthrise Commons, you are credited for your project contributions!
     Learn more about Creative Commons attributions.</Banner
@@ -82,31 +73,18 @@ import CFSTable3 from "../content/call-for-submissions/CFSTable3.astro";
     <a href="https://forms.gle/CQKchaLfjDkk8knC8" class="ec-button"
       >Google Form Submission</a
     >
-    <!-- <h3>Option 2: Submit a Google Doc</h3>
-    <p>
-      If you prefer, you may submit your response via a Google Doc. You can
-      simply upload whatever materials you already have without needing to
-      reformat them or answer new questions.
-    </p>
-    <ol>
-      <li>Create your document</li>
-      <li>
-        Upload it to the Earthrise Commons Submissions Google Drive folder.
-      </li>
-    </ol>
-    <a
-      href="https://drive.google.com/drive/folders/1Xm3iZBU-2a8DDFABqHW4mfe3_s7y4OtX"
-      class="ec-button"
-      ><Icon name="fa7-brands:google-drive" />Google Drive Submission Folder</a
-    > -->
 
     <Banner icon="a" color="b"
       >Each submission should be concise (500-700 words) and include all
       required sections. We look forward to receiving your submission!</Banner
     >
   </BGBlock>
-  <CFS2 />
-  <Accordion title="Suggested Topics"><CFS3 /></Accordion>
+  <h2>{pageArticles["submission-guidelines"].headline}</h2>
+  <Fragment set:html={pageArticles["submission-guidelines"].content} />
+
+  <Accordion title={pageArticles["suggested-topics"].headline}
+    ><Fragment set:html={pageArticles["suggested-topics"].content} /></Accordion
+  >
   <ImageGroup
     src={Img2}
     alt="Mauritanian woman cleaning the solar panels that provide power for her cooperative's water supply"

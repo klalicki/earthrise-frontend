@@ -1,23 +1,9 @@
 ---
-import { loadFromCMS } from "../cms/loadFromCMS";
 import AvatarTest from "../tests/AvatarTest.astro";
-const data = await loadFromCMS({
-  query: 'page("people").children',
-  // select: {
-  //   all: true,
-  //   // url: true,
-  //   // displayName: true,
-  //   // pronouns: true,
-  //   // bio:true,
-  //   // // "text": "page.text.markdown",
-  //   // photo: {
-  //   //   query: "page.images",
-  //   //   select: {
-  //   //     url: true,
-  //   //   },
-  //   // },
-  // },
-});
+import { getPageContents } from "../cms/getPageContents";
+
+const data = await getPageContents("code-of-conduct");
+
 import { Code } from "astro:components";
 import Layout from "../layouts/Layout.astro";
 ---
