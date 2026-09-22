@@ -11,20 +11,7 @@ const footerArticles = await getPageContents("footer");
   <div class="footer-content-wrapper">
     <div class="footer-col text-block">
       <h2>{footerArticles["contact"].headline}</h2>
-      <Fragment set:html={footerArticles["contact"].content} <p>
-        Earthrise Commons invites educators, community leaders, and
-        sustainability practitioners to contribute to our sustainability
-        education and community engagement learning commons. We are not just a
-        collection of lesson plans, but a community of educators!
-      </Fragment>
-      <p>
-        We look forward to your submissions of innovative approaches to
-        sustainability education and community engagement!
-      </p>
-      <p>
-        For questions or more information, please contact Joshua Korenblat at
-        korenblj@newpaltz.edu.
-      </p>
+      <Fragment set:html={footerArticles["contact"].content} />
       <a class="ec-button" href="mailto:korenblj@newpaltz.edu"
         ><Icon name="fa7-solid:envelope" />Contact Us</a
       >
