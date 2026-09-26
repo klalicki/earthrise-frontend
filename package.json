@@ -21,6 +21,7 @@
     "astro-icon": "^1.1.5",
     "axios": "^1.11.0",
     "hash-it": "^6.0.0",
+    "octokit": "^5.0.5",
     "yaml": "^2.8.1"
   },
   "devDependencies": {
