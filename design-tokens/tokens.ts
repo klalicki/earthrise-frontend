@@ -69,7 +69,9 @@ const buildCSSString = (assignments: String[], comment: String) => {
 
 const generateCSS = () => {
   const baseValues = []
+  // @ts-ignore
   const themeValues: Record<ThemeName, String[]> = {}
+  // @ts-ignore
   const themeLocals: Record<ThemeName, String[]> = {}
   // initialize themeValues
   for (const themeName of themeNames) {

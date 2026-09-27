@@ -1,7 +1,7 @@
 ---
 /* Version 2 of the BG Block component, using CSS Grid for positioning */
-import StarIcon from "../../assets/icons/icon-star.svg";
-import RainbowBar from "../little-things/RainbowBar.astro";
+import StarIcon from "@/assets/icons/icon-star.svg";
+import RainbowBar from "@/components/little-things/RainbowBar.astro";
 
 const getRandomSign = () => {
   return Math.random() < 0.5 ? 1 : -1;
@@ -13,7 +13,7 @@ for (let i = 0; i < 4; i++) {
   const starGroup = [];
   const groupSize = Math.random() * 4 + 1;
   for (let i = 0; i < groupSize; i++) {
-    const curStar = {};
+    const curStar: Record<string, string> = {};
     curStar["--star-rotation"] = `${Math.floor(Math.random() * 360)}deg`;
     curStar["--star-width"] = `${Math.floor(Math.random() * 20 + 20)}px`;
     curStar["--star-left"] = `${Math.floor(Math.random() * 60 + 20)}%`;

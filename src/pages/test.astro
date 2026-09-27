@@ -1,11 +1,11 @@
 ---
-import AvatarTest from "../tests/AvatarTest.astro";
-import { getPageContents } from "../cms/getPageContents";
+import AvatarTest from "@/tests/AvatarTest.astro";
+import { getPageContents } from "@/cms/getPageContents";
 
 const data = await getPageContents("code-of-conduct");
 
 import { Code } from "astro:components";
-import Layout from "../layouts/Layout.astro";
+import Layout from "@/layouts/Layout.astro";
 ---
 
 <Layout title="Test Page">

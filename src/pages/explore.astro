@@ -3,11 +3,11 @@ const query = Astro.url.searchParams.get("query") || "";
 const types = Astro.url.searchParams.getAll("type") || "";
 const pageStr = Astro.url.searchParams.get("page") || "1";
 const page = parseInt(pageStr);
-import Layout from "../layouts/Layout.astro";
-import SearchQuery from "../components/page-blocks/SearchQuery.astro";
-import SearchHero from "../assets/graphic-hero/search-hero.png";
+import Layout from "@/layouts/Layout.astro";
+import SearchQuery from "@/components/page-blocks/SearchQuery.astro";
+import SearchHero from "@/assets/graphic-hero/search-hero.png";
 import { Image } from "astro:assets";
-import PageTypeFilter from "../components/page-blocks/PageTypeFilter.astro";
+import PageTypeFilter from "@/components/page-blocks/PageTypeFilter.astro";
 ---
 
 <Layout>

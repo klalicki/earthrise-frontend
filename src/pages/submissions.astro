@@ -1,26 +1,26 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import CFSHero from "../assets/graphic-hero/cfs-hero.svg";
-import GraphicHero from "../components/special-blocks/GraphicHero.astro";
-import TwoCol from "../components/content-blocks/TwoCol.astro";
-import ImageGroup from "../components/content-blocks/ImageGroup.astro";
-import InPageNav from "../components/layout/nav/InPageNav.astro";
-import KantrowitzPainting from "../assets/images/art-andrea-kantrowitz.jpg";
+import Layout from "@/layouts/Layout.astro";
+import CFSHero from "@/assets/graphic-hero/cfs-hero.svg";
+import GraphicHero from "@/components/special-blocks/GraphicHero.astro";
+import TwoCol from "@/components/content-blocks/TwoCol.astro";
+import ImageGroup from "@/components/content-blocks/ImageGroup.astro";
+import InPageNav from "@/components/layout/nav/InPageNav.astro";
+import KantrowitzPainting from "@/assets/images/art-andrea-kantrowitz.jpg";
 
-import Banner from "../components/content-blocks/Banner.astro";
-import Accordion from "../components/content-blocks/Accordion.astro";
-import Img1 from "../assets/images/cfs-img-1.jpg";
-import Img2 from "../assets/images/cfs-img-2.jpg";
-import Img3 from "../assets/images/cfs-img-3.jpg";
-import BGBlock from "../components/content-blocks/BGBlock.astro";
-import BGBlockAlt from "../components/content-blocks/BGBlockAlt.astro";
+import Banner from "@/components/content-blocks/Banner.astro";
+import Accordion from "@/components/content-blocks/Accordion.astro";
+import Img1 from "@/assets/images/cfs-img-1.jpg";
+import Img2 from "@/assets/images/cfs-img-2.jpg";
+import Img3 from "@/assets/images/cfs-img-3.jpg";
+import BGBlock from "@/components/content-blocks/BGBlock.astro";
+import BGBlockAlt from "@/components/content-blocks/BGBlockAlt.astro";
 import { Icon } from "astro-icon/components";
-import CFSTable1 from "../content/call-for-submissions/CFSTable1.astro";
-import CFSTable2 from "../content/call-for-submissions/CFSTable2.astro";
-import CFSTable3 from "../content/call-for-submissions/CFSTable3.astro";
+import CFSTable1 from "@/content/call-for-submissions/CFSTable1.astro";
+import CFSTable2 from "@/content/call-for-submissions/CFSTable2.astro";
+import CFSTable3 from "@/content/call-for-submissions/CFSTable3.astro";
 
-import { getPageContents } from "../cms/getPageContents";
-import PaddedContentContainer from "../components/layout/page/PaddedContentContainer.astro";
+import { getPageContents } from "@/cms/getPageContents";
+import PaddedContentContainer from "@/components/layout/page/PaddedContentContainer.astro";
 
 const pageArticles = await getPageContents("submissions");
 ---

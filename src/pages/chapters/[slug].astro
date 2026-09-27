@@ -1,15 +1,15 @@
 ---
 import { parse as parseYaml } from "yaml";
-import Layout from "../../layouts/Layout.astro";
-import { loadFromCMS } from "../../cms/loadFromCMS";
-import PageHero from "../../components/page-blocks/PageHero.astro";
+import Layout from "@/layouts/Layout.astro";
+import { loadFromCMS } from "@/cms/loadFromCMS";
+import PageHero from "@/components/page-blocks/PageHero.astro";
 const { slug } = Astro.params;
 import { Image } from "astro:assets";
-import PersonBlock from "../../components/page-blocks/PersonBlock.astro";
-import BGBlockAlt from "../../components/content-blocks/BGBlockAlt.astro";
-import ChapterBG from "../../assets/graphic-hero/chapter-bg.png";
-import BlockResources from "../../components/page-blocks/blocks/BlockResources.astro";
-import HeroImage from "../../components/page-blocks/HeroImage.astro";
+import PersonBlock from "@/components/page-blocks/PersonBlock.astro";
+import BGBlockAlt from "@/components/content-blocks/BGBlockAlt.astro";
+import ChapterBG from "@/assets/graphic-hero/chapter-bg.png";
+import BlockResources from "@/components/page-blocks/blocks/BlockResources.astro";
+import HeroImage from "@/components/page-blocks/HeroImage.astro";
 
 export const getStaticPaths = async () => {
   const chapters = await loadFromCMS({ query: 'page("chapters").children' });

@@ -1,8 +1,8 @@
 ---
 import { parse as parseYaml } from "yaml";
 import { Code } from "astro/components";
-import TwoCol from "../../content-blocks/TwoCol.astro";
-import BlockRenderer from "../BlockRenderer.astro";
+import TwoCol from "@/components/content-blocks/TwoCol.astro";
+import BlockRenderer from "@/components/page-blocks/BlockRenderer.astro";
 const { content, pageFiles } = Astro.props;
 const { left, right, theme } = content;
 const leftBlocks = JSON.parse(left);

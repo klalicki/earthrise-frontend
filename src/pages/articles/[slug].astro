@@ -1,14 +1,14 @@
 ---
-import { loadFromCMS } from "../../cms/loadFromCMS";
+import { loadFromCMS } from "@/cms/loadFromCMS";
 import { parse as parseYaml } from "yaml";
-import BlockRenderer from "../../components/page-blocks/BlockRenderer.astro";
-import PersonBlock from "../../components/page-blocks/PersonBlock.astro";
-import PageHero from "../../components/page-blocks/PageHero.astro";
-import Layout from "../../layouts/Layout.astro";
-import HeroImage from "../../components/page-blocks/HeroImage.astro";
+import BlockRenderer from "@/components/page-blocks/BlockRenderer.astro";
+import PersonBlock from "@/components/page-blocks/PersonBlock.astro";
+import PageHero from "@/components/page-blocks/PageHero.astro";
+import Layout from "@/layouts/Layout.astro";
+import HeroImage from "@/components/page-blocks/HeroImage.astro";
 
-import TagGroup from "../../components/page-blocks/TagGroup.astro";
-import { normalizeTagsJSON } from "../../cms/normalizeTags";
+import TagGroup from "@/components/page-blocks/TagGroup.astro";
+import { normalizeTagsJSON } from "@/cms/normalizeTags";
 const { slug } = Astro.params;
 const rawData = await loadFromCMS({
   query: `page('articles/${slug}')`,

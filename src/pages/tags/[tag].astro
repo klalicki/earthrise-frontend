@@ -1,8 +1,8 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import { loadFromCMS } from "../../cms/loadFromCMS";
+import Layout from "@/layouts/Layout.astro";
+import { loadFromCMS } from "@/cms/loadFromCMS";
 const { tag } = Astro.params;
-import CardFeed from "../../components/page-blocks/CardFeed.astro";
+import CardFeed from "@/components/page-blocks/CardFeed.astro";
 
 const pages = await loadFromCMS({
   query: `site.index.children.filterBy('taxonomy','*=','${tag}')`,

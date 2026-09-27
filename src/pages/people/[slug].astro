@@ -1,12 +1,12 @@
 ---
 import type { GetStaticPaths } from "astro";
-import Layout from "../../layouts/Layout.astro";
-import Breadcrumbs from "../../components/page-blocks/Breadcrumbs.astro";
-import { loadFromCMS } from "../../cms/loadFromCMS";
+import Layout from "@/layouts/Layout.astro";
+import Breadcrumbs from "@/components/page-blocks/Breadcrumbs.astro";
+import { loadFromCMS } from "@/cms/loadFromCMS";
 import Code from "astro/components/Code.astro";
-import PersonHero from "../../components/page-blocks/PersonHero.astro";
-import CardFeed from "../../components/page-blocks/CardFeed.astro";
-import type { PersonPage } from "../../types/pageTypes";
+import PersonHero from "@/components/page-blocks/PersonHero.astro";
+import CardFeed from "@/components/page-blocks/CardFeed.astro";
+import type { PersonPage } from "@/types/pageTypes";
 const { slug } = Astro.params;
 export const getStaticPaths = async () => {
   const people = await loadFromCMS({ query: 'page("people").children' });

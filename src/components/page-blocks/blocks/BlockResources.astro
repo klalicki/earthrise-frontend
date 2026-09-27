@@ -1,7 +1,7 @@
 ---
 const { content, pageFiles } = Astro.props;
-import Accordion from "../../content-blocks/Accordion.astro";
-import formatBytes from "../../../helpers/formatBytes";
+import Accordion from "@/components/content-blocks/Accordion.astro";
+import formatBytes from "@/helpers/formatBytes";
 import { Icon } from "astro-icon/components";
 
 const processedItems = await Promise.all(

@@ -1,7 +1,7 @@
 ---
 const { content, pageFiles } = Astro.props;
-import lookupAsset from "../../../cms/lookupAsset";
-import ImageGroup from "../../content-blocks/ImageGroup.astro";
+import lookupAsset from "@/cms/lookupAsset";
+import ImageGroup from "@/components/content-blocks/ImageGroup.astro";
 
 const imageData = lookupAsset(content.image[0], pageFiles);
 ---

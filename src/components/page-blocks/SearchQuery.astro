@@ -8,8 +8,8 @@ const PAGINATION_SIZE = 12;
 const { query, page, types } = Astro.props;
 import CardFeed from "./CardFeed.astro";
 import Pagination from "./Pagination.astro";
-import { loadFromCMS } from "../../cms/loadFromCMS";
-import { randomizeArray } from "../../helpers/randomizeArray";
+import { loadFromCMS } from "@/cms/loadFromCMS";
+import { randomizeArray } from "@/helpers/randomizeArray";
 
 const cmsQuery = query ? `site.search('${query}')` : "site.index.children";
 const typeQuery =

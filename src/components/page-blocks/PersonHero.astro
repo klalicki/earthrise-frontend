@@ -1,15 +1,15 @@
 ---
 const { data } = Astro.props;
-import { normalizeTagsFromYaml } from "../../cms/normalizeTags";
+import { normalizeTagsFromYaml } from "@/cms/normalizeTags";
 import { parse as parseYaml } from "yaml";
 import Image from "astro/components/Image.astro";
-import PersonBanner from "../../assets/layouts/person-banner.png";
+import PersonBanner from "@/assets/layouts/person-banner.png";
 import TagGroup from "./TagGroup.astro";
-import Accordion from "../content-blocks/Accordion.astro";
+import Accordion from "@/components/content-blocks/Accordion.astro";
 const hasPhoto = data.photo && data.photo.url;
 const tags = normalizeTagsFromYaml(data.tags || "");
 // TODO: build placeholder photo component
-import PersonPlaceholder from "../placeholders/PersonPlaceholder.astro";
+import PersonPlaceholder from "@/components/placeholders/PersonPlaceholder.astro";
 ---
 
 <div class="person-hero">

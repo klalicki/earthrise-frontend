@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import { loadFromCMS } from "../cms/loadFromCMS";
+import Layout from "@/layouts/Layout.astro";
+import { loadFromCMS } from "@/cms/loadFromCMS";
 import { Code } from "astro/components";
 
-import CardFeed from "../components/page-blocks/CardFeed.astro";
+import CardFeed from "@/components/page-blocks/CardFeed.astro";
 
 const people = await loadFromCMS({
   query: `page('people').children`,

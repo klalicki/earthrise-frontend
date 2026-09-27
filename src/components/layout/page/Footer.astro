@@ -1,8 +1,8 @@
 ---
-import Navbar from "../nav/Navbar.astro";
-import FooterNav from "../nav/FooterNav.astro";
+import Navbar from "@/components/layout/nav/Navbar.astro";
+import FooterNav from "@/components/layout/nav/FooterNav.astro";
 import { Icon } from "astro-icon/components";
-import { getPageContents } from "../../../cms/getPageContents";
+import { getPageContents } from "@/cms/getPageContents";
 const footerArticles = await getPageContents("footer");
 ---
 

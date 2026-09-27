@@ -1,14 +1,14 @@
 ---
-import GraphicHero from "../components/special-blocks/GraphicHero.astro";
-import Layout from "../layouts/Layout.astro";
-import COCHero from "../assets/graphic-hero/coc-hero.svg";
-import Conduct1 from "../components/special-blocks/Conduct1.astro";
-import Conduct2 from "../components/special-blocks/Conduct2.astro";
-import InPageNav from "../components/layout/nav/InPageNav.astro";
-import Banner from "../components/content-blocks/Banner.astro";
+import GraphicHero from "@/components/special-blocks/GraphicHero.astro";
+import Layout from "@/layouts/Layout.astro";
+import COCHero from "@/assets/graphic-hero/coc-hero.svg";
+import Conduct1 from "@/components/special-blocks/Conduct1.astro";
+import Conduct2 from "@/components/special-blocks/Conduct2.astro";
+import InPageNav from "@/components/layout/nav/InPageNav.astro";
+import Banner from "@/components/content-blocks/Banner.astro";
 import { Icon } from "astro-icon/components";
-import { getPageContents } from "../cms/getPageContents";
-import PaddedContentContainer from "../components/layout/page/PaddedContentContainer.astro";
+import { getPageContents } from "@/cms/getPageContents";
+import PaddedContentContainer from "@/components/layout/page/PaddedContentContainer.astro";
 const pageArticles = await getPageContents("code-of-conduct");
 ---
 

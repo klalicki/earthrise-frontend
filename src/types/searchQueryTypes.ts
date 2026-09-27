@@ -4,10 +4,10 @@ export interface SearchQueryType {
   types: string[];
 }
 
-import articles from "../assets/searchFilters/articles.svg";
-import chapters from "../assets/searchFilters/chapters.svg";
-import lessons from "../assets/searchFilters/lessons.svg";
-import people from "../assets/searchFilters/people.svg";
+import articles from "@/assets/searchFilters/articles.svg";
+import chapters from "@/assets/searchFilters/chapters.svg";
+import lessons from "@/assets/searchFilters/lessons.svg";
+import people from "@/assets/searchFilters/people.svg";
 
 export const pageTypes = [
   {
