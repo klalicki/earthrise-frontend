@@ -40,8 +40,8 @@ const authors:{displayname:string,lastnamesort?:string,id:string,organizationnam
   select:['displayname','lastnamesort','id','organizationname']});
 
 const authorsSorted = authors.sort((a,b)=>{
-  const lastNameA = a.lastnamesort || a.displayname.split(" ").at(-1)
-  const lastNameB = b.lastnamesort || b.displayname.split(" ").at(-1)
+  const lastNameA = a.lastnamesort || a.displayname.split(" ").at(-1) || ""
+  const lastNameB = b.lastnamesort || b.displayname.split(" ").at(-1) || ""
   return (lastNameA < lastNameB)? -1: 1
 })
 

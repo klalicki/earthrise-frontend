@@ -4,11 +4,19 @@ import Icon1 from "@/assets/banner/banner-icon-1.svg";
 import Icon2 from "@/assets/banner/banner-icon-2.svg";
 import IconX from "@/assets/banner/banner-icon-x.svg";
 
+interface Props {
+  color: string;
+  icon: IconIndex;
+}
+
 const iconTable = {
   a: Icon1,
   b: Icon2,
   x: IconX,
 };
+
+type IconIndex = keyof typeof iconTable;
+
 const Icon = iconTable[icon] || Icon1;
 ---
 
